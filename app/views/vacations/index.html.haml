@@ -1,0 +1,23 @@
+%h1 Vacations time
+- @vacation_user_hash.keys.each do |key|
+  .col-md-4
+    - days = 0
+    - vacation_array = @vacation_user_hash[key]
+    %h3= key
+    - vacation_array.each do |vacation|
+      - date = ""
+      - if vacation.start_date && vacation.end_date
+        - date = "#{vacation.start_date.strftime("%d-%m")}/#{vacation.end_date.strftime("%d-%m-%y")}"
+      - elsif vacation.start_date
+        - date = "#{vacation.start_date.strftime("%d-%m-%y")}"
+      - elsif vacation.end_date
+        - date = "#{vacation.end_date.strftime("%d-%m-%y")}"
+
+      %b= "#{date} (#{vacation.days})"
+      = vacation.description
+      - days = days + vacation.days
+    %br
+    %b= "Total days #{days}"
+
+
+

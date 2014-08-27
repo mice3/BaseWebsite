@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   has_many :oauths
+  has_many :vacations
+  has_many :scrum_tasks
 
   attr_accessor :require_password, :require_password_confirmation
 

@@ -1,0 +1,9 @@
+= f.input :user_id
+= f.input :project_id
+= f.input :description, as: :text
+= f.input :time_to_do
+= f.input :time_used
+= f.input :not_finished_or_overtime_justification, as: :text
+/ %br
+/ %label= "Delete"
+/ = f.check_box '_destroy'

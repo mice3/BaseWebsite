@@ -7,9 +7,9 @@
 development: &defaults
   adapter: postgresql
   encoding: utf8
-  database: lophster_development
-  username: lophster
-  password: lophster
+  database: overlord_development
+  username: overlord
+  password: overlord
   su_username: markojurincic
   su_password: sewen7sewen
 
@@ -19,7 +19,7 @@ development: &defaults
 # Do not set this db to the same as development or production.
 test:
   <<: *defaults
-  database: lophster_test
+  database: overlord_test
 
 production:
   adapter: postgresql

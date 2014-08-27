@@ -1,0 +1,4 @@
+= simple_form_for @scrum_task, :url => update_task_scrums_path,remote: true do |f|
+  = render 'scrum_task_fields', :f => f
+  = hidden_field_tag "scrum_task[id]", @scrum_task.id
+  = f.submit 'update'

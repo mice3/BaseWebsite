@@ -1,0 +1,28 @@
+= @scrum.date
+%br
+= @scrum.finished_at
+%br
+- @scrum.scrum_tasks.order("user_id ASC").each do |scrum_task|
+  .col-md-4
+    .thumbnail
+      - if scrum_task.user
+        = scrum_task.user.email
+        %br
+      - if scrum_task.project
+        = scrum_task.project.name
+        %br
+      = scrum_task.description
+      %br
+      - if scrum_task.time_to_do
+        = scrum_task.time_to_do.strftime("%k hours %M minutes")
+        %br
+      - if scrum_task.time_used
+        = scrum_task.time_used.strftime("%k hours %M minutes")
+        %br
+      - if !scrum_task.not_finished_or_overtime_justification.blank?
+        = scrum_task.not_finished_or_overtime_justification
+        %br
+      = link_to "Edit", edit_task_scrums_path(:id => scrum_task.id)
+
+
+= link_to "New scrum", new_scrum_path

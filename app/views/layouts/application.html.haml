@@ -1,0 +1,11 @@
+%html
+  %head
+    = render 'layouts/head'
+  %body
+    = render 'layouts/navigation'
+
+    .col-sm-12
+      = yield
+
+    %footer
+      = render 'layouts/footer'
