@@ -1,0 +1,124 @@
+-table_style = "border: 1px solid #ccc; width: 100%; border-right:none; border-bottom:none;"
+-td_style = "border: 1px solid #ccc; border-top: none; border-left:none; padding: 5px;"
+-th_style = td_style + ""
+-th_left_style = td_style + "text-align: right;";
+-h1_style = "font-size: 30px; color: #ccc; text-align: center;"
+- our_company = @invoice.our_company
+
+%div{:style => "clear: both; margin-top: 20px; overflow: auto"}
+  %table{:style => table_style, :cellspacing => 0}
+    %tr
+      %td{:style => th_style, :colspan => 7}= "#{our_company.name}, #{our_company.address} #{our_company.zip_code} #{our_company.city}, #{our_company.country}; #{our_company.trr}"
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    %tr
+      %td{:style => th_style, :colspan => 6}
+        %b="Invoice number: #{@invoice.invoice_number}"
+      %td{:style => th_style}
+        %b= l @invoice.created_at.to_date, format: :default
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    %tr
+      %td{:style => th_style, :colspan => 7}=@invoice.project.partner.name
+    %tr
+      %td{:style => th_style, :colspan => 7}=@invoice.project.partner.address
+    %tr
+      %td{:style => th_style, :colspan => 7}="#{@invoice.project.partner.zip_code} #{@invoice.project.partner.city}"
+    %tr
+      %td{:style => th_style, :colspan => 7}=@invoice.project.partner.country
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    %tr
+      %td{:style => th_style, :colspan => 7}
+        %b="Attention #{@invoice.project.partner.attention_to}"
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    %tr
+      %td{:style => th_style, :colspan => 7}="Summary of current changes for the #{@invoice.project.name} project"
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    - @invoice.invoice_items.each do |invoice_item|
+      %tr
+        %td{:style => th_style}
+        %td{:style => th_style, :colspan => 4}
+          = "- #{invoice_item.description}"
+        %td{:style => th_style}= @invoice.currency
+        %td{:style => th_style}= invoice_item.price
+    %tr
+      %td{:style => th_style}
+      %td{:style => th_style, :colspan => 4}
+        = "Total due"
+      %td{:style => th_style}= @invoice.currency
+      %td{:style => th_style}= @invoice.price
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    %tr
+      %td{:style => th_style}
+      %td{:style => th_style, :colspan => 3}
+        = "VAT TAX."
+      %td{:style => th_style, :colspan => 3}
+        = "Not Applicable"
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    %tr
+      %td{:style => th_style}
+      %td{:style => th_style, :colspan => 6}
+        = "For deposit to the account of #{our_company.name} with:"
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    %tr
+      %td{:style => th_style, :colspan => 2}
+      %td{:style => th_style, :colspan => 5}
+        = our_company.bank
+    %tr
+      %td{:style => th_style, :colspan => 2}
+      %td{:style => th_style, :colspan => 5}
+        = our_company.trr
+    %tr
+      %td{:style => th_style, :colspan => 2}
+      %td{:style => th_style, :colspan => 5}
+        = "Reference number: #{our_company.reference_number}"
+    %tr
+      %td{:style => th_style, :colspan => 2}
+      %td{:style => th_style, :colspan => 5}
+        = "Swift BIC code: #{our_company.swift_bic_code}"
+    %tr
+      %td{:style => th_style, :colspan => 2}
+      %td{:style => th_style, :colspan => 5}
+        = our_company.country
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    %tr
+      %td{:style => th_style}
+      %td{:style => th_style, :colspan => 6}
+        = "VAT is not charged according to the art. 94 of Slovenia VAT law"
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    %tr
+      %td{:style => th_style}
+      %td{:style => th_style, :colspan => 6}
+        = "If you have any questions concerning this invoice, please contact:"
+    %tr
+      %td{:style => th_style, :colspan => 7}
+    %tr
+      %td{:style => th_style, :colspan => 2}
+      %td{:style => th_style, :colspan => 5}
+        = our_company.contact_name
+    %tr
+      %td{:style => th_style, :colspan => 2}
+      %td{:style => th_style, :colspan => 5}
+        = our_company.contact_phone
+    %tr
+      %td{:style => th_style, :colspan => 2}
+      %td{:style => th_style, :colspan => 5}
+        = our_company.contact_email

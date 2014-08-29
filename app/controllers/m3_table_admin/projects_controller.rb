@@ -5,6 +5,7 @@ class M3TableAdmin::ProjectsController < M3TableAdmin::ApplicationController
   private
     def set_table
       @table = M3TableAdmin::Table.new("projects")
+      @table.add_autocomplete_column "partner", "name"
       @table.add_column "name", "text", {"index" => true}
       @table.add_column "description", "wysihtml5", {"index" => false}
       @table.add_column "content", "wysihtml5", {"index" => false}

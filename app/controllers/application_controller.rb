@@ -7,6 +7,16 @@ class ApplicationController < ActionController::Base
 
   include SessionsControllerConcern
 
+    def autocomplete
+      @return_objects = []
+      if defined?(params[:type]) && defined?(params[:term])
+        @return_objects = params[:type].camelize.constantize.autocomplete_scope(params[:term], nil).limit(20)
+      end
+
+      render json: @return_objects.to_json
+    end
+
+
   # Returns currently authenticated user.
   def current_user
     @current_user ||= User.authenticatable.find_by_id(session[:user_id]) if session[:user_id]

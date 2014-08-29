@@ -35,7 +35,6 @@ class VacationsController < ApplicationController
     end
   end
 
-
   private
     def vacation_params
       params.require(:vacation).permit!  #this will permit all post parameters!

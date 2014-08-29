@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   delete "/auth/:provider" => "oauths#destroy", as: "auth"
   get "/auth/failure" => "oauths#failure"
 
+  get "/autocomplete", to: "application#autocomplete"
+
   namespace :m3_table_admin, path: "admin" do
     get "/", to: "users#index"
     get "/autocomplete", to: "application#autocomplete"
@@ -13,7 +15,9 @@ Rails.application.routes.draw do
     resources :pages
     resources :users
     resources :images
+    resources :partners
     resources :projects
+    resources :our_companies
   end
 
   get '/pages/*slug' => 'pages#show', :as => 'page'
@@ -21,6 +25,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :vacations
+  resources :invoices
   resources :scrums do
     collection do
       get :last
