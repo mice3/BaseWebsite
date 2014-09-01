@@ -9,7 +9,6 @@
     = invoice.project.name
     %br
   %b= "Ammount: #{invoice.price} #{invoice.currency}"
-  = invoice.price
   %br
   = link_to "show", invoice
   = link_to "edit", edit_invoice_path(invoice)
