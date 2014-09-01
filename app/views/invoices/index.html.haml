@@ -3,11 +3,17 @@
 %br
 - @invoices.each do |invoice|
   %b= l invoice.created_at.to_date, format: :default
-  = invoice.project.name
+  %br
+  - if invoice.project.present?
+    %b= "Invoice for project: "
+    = invoice.project.name
+    %br
+  %b= "Ammount: #{invoice.price} #{invoice.currency}"
   = invoice.price
+  %br
   = link_to "show", invoice
   = link_to "edit", edit_invoice_path(invoice)
   - total_invoices = total_invoices + invoice.price
   %br
-
+  %br
 = "Total invoices #{total_invoices}"

@@ -1,0 +1,25 @@
+= link_to "New payment", new_payment_path
+- total_payments = 0
+%br
+- @payments.each do |payment|
+  %b= l payment.created_at.to_date, format: :default
+  %br
+  - if payment.project.present?
+    %b= "Payment for project: "
+    = payment.project.name
+    %br
+  - if payment.our_company_id.present?
+    %b= "Payment received on company: "
+    = payment.our_company.name
+    %br
+  %b= "Invoice details: "
+  = link_to "invoice", payment.invoice
+  %br
+  %b= "Ammount payed: #{payment.price} #{payment.currency}"
+  %br
+  = link_to "show", payment
+  = link_to "edit", edit_payment_path(payment)
+  - total_payments = total_payments + payment.price
+  %br
+  %br
+= "Total payments #{total_payments}"

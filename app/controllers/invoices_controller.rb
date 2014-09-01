@@ -21,6 +21,12 @@ class InvoicesController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.pdf do
+        render :pdf => "invoice", :template => 'invoices/show.haml'
+      end
+      format.html
+    end
   end
 
   def index
@@ -52,4 +58,5 @@ class InvoicesController < ApplicationController
     def load_invoice
       @invoice = Invoice.find(params[:id])
     end
+
 end

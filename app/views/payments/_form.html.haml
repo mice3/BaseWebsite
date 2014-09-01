@@ -1,0 +1,9 @@
+= simple_form_for @payment, remote: true do |f|
+  = f.input :project, as: :autocomplete
+  = f.input :our_company, as: :autocomplete
+  = f.input :invoice, as: :autocomplete
+  = f.input :price
+  = f.input :currency
+  = f.input :description
+
+  = f.submit @payment.new_record? ? "Create" : "Update", class: "btn btn-lg btn-default pull-left"

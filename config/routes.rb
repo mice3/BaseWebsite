@@ -18,6 +18,8 @@ Rails.application.routes.draw do
     resources :partners
     resources :projects
     resources :our_companies
+    resources :expense_categories
+    resources :invoices
   end
 
   get '/pages/*slug' => 'pages#show', :as => 'page'
@@ -26,6 +28,8 @@ Rails.application.routes.draw do
   resources :users
   resources :vacations
   resources :invoices
+  resources :payments
+  resources :expenses
   resources :scrums do
     collection do
       get :last

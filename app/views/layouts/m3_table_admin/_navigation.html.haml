@@ -16,31 +16,24 @@
         %li
           = link_to "Users", m3_table_admin_users_path
         %li
-          = link_to "Pages", m3_table_admin_pages_path
-        %li
-          = link_to "Images", m3_table_admin_images_path
-        %li
           = link_to "Partners", m3_table_admin_partners_path
         %li
           = link_to "Projects", m3_table_admin_projects_path
         %li
           = link_to "Our companies", m3_table_admin_our_companies_path
         %li
-          = link_to "Logout?", "#"
+          = link_to "Invoices", m3_table_admin_invoices_path
+        %li
+          = link_to "Expense categories", m3_table_admin_expense_categories_path
         %li.dropdown
           %a.dropdown-toggle{"data-toggle" => "dropdown", href: "#"}
-            Dropdown
+            More
             %span.caret
           %ul.dropdown-menu{role: "menu"}
             %li
-              %a{href: "#"} Action
+              = link_to "Pages", m3_table_admin_pages_path
             %li
-              %a{href: "#"} Another action
-            %li
-              %a{href: "#"} Something else here
+              = link_to "Images", m3_table_admin_images_path
             %li.divider
             %li
-              %a{href: "#"} Separated link
-            %li.divider
-            %li
-              %a{href: "#"} One more separated link
+              = link_to "Logout?", "#"

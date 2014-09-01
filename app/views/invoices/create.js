@@ -1,1 +1,1 @@
-<%= render "shared/form_errors", :form_id => " new_invoice", :errors => @errors, :obj_type => "invoice" %>
+<%= render "shared/form_errors", :form_id => " new_payment", :errors => @errors, :obj_type => "payment" %>

@@ -11,10 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140829112131) do
+ActiveRecord::Schema.define(version: 20140901102432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "expense_categories", force: true do |t|
+    t.string   "name"
+    t.string   "nice_id"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "expenses", force: true do |t|
+    t.integer  "expense_category_id"
+    t.decimal  "price",               precision: 15, scale: 2, default: 0.0
+    t.string   "currency",                                     default: "EUR", null: false
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
 
   create_table "images", force: true do |t|
     t.string   "name"
@@ -93,6 +111,17 @@ ActiveRecord::Schema.define(version: 20140829112131) do
     t.string   "city"
     t.string   "country"
     t.string   "attention_to"
+  end
+
+  create_table "payments", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "our_company_id"
+    t.integer  "invoice_id"
+    t.decimal  "price",          precision: 15, scale: 2, default: 0.0
+    t.string   "currency",                                default: "EUR", null: false
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "projects", force: true do |t|

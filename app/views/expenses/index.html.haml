@@ -1,0 +1,20 @@
+= link_to "New expense", new_expense_path
+- total_expenses = 0
+%br
+- @expenses.each do |expense|
+  %b= l expense.created_at.to_date, format: :default
+  %br
+  - if  expense.expense_category.present?
+    %b= "Payment for category: "
+    = expense.expense_category.name
+  - else
+    = "Select a cetegory"
+  %br
+  %b= "Ammount payed: #{expense.price} #{expense.currency}"
+  %br
+  = link_to "show", expense
+  = link_to "edit", edit_expense_path(expense)
+  - total_expenses = total_expenses + expense.price
+  %br
+  %br
+= "Total expenses #{total_expenses}"

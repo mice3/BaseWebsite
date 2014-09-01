@@ -1,0 +1,8 @@
+= simple_form_for @expense, remote: true do |f|
+  = f.input :expense_category, as: :autocomplete
+  = f.input :user, as: :autocomplete
+  = f.input :price
+  = f.input :currency
+  = f.input :description
+
+  = f.submit @expense.new_record? ? "Create" : "Update", class: "btn btn-lg btn-default pull-left"
