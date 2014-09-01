@@ -37,6 +37,9 @@ Rails.application.routes.draw do
       patch :update_task
     end
   end
+
+  resources 'earnings', to: 'statistics#earnings'
+
   resources :sessions, only: [:new, :create, :destroy] #we limit to just those actions, because we dont need other actions
   match '/signup',  to: 'users#new', via: 'get'
   match '/login',  to: 'sessions#new', via: 'get'
