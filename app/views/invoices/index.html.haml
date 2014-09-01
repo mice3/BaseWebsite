@@ -2,7 +2,8 @@
 - total_invoices = 0
 %br
 - @invoices.each do |invoice|
-  %b= l invoice.created_at.to_date, format: :default
+  - if invoice.sent_at
+    %b= l invoice.sent_at.to_date, format: :default
   %br
   - if invoice.project.present?
     %b= "Invoice for project: "
