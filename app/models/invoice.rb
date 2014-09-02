@@ -8,6 +8,18 @@ class Invoice < ActiveRecord::Base
 
   scope :autocomplete_scope, ->(q, user = nil) { where("invoice_number LIKE ?", "%#{q}%").select("invoice_number as value, id as id") }
 
+  def storno?
+    storno
+  end
+
+  def payments_sum
+    tmp_payments_sum = 0
+    payments.each do |payment|
+      tmp_payments_sum = tmp_payments_sum + payment.price
+    end
+    return tmp_payments_sum
+  end
+
   def autocomplete_label
     invoice_number
   end

@@ -9,11 +9,19 @@
     %b= "Invoice for project: "
     = invoice.project.name
     %br
-  %b= "Ammount: #{invoice.price} #{invoice.currency}"
+  - payed_style = "color:red;"
+  - if invoice.price == invoice.payments_sum
+    - payed_style = "color:green;"
+  %b{ :style => payed_style}= "Ammount: #{invoice.price} #{invoice.currency} / Payed #{invoice.payments_sum} #{invoice.currency} "
   %br
+  - if invoice.storno?
+    %b="STORNO"
+    %br
+    - total_invoices = total_invoices - invoice.price
+  - else
+    - total_invoices = total_invoices + invoice.price
   = link_to "show", invoice
   = link_to "edit", edit_invoice_path(invoice)
-  - total_invoices = total_invoices + invoice.price
   %br
   %br
 = "Total invoices #{total_invoices}"
