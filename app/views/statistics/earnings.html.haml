@@ -1,5 +1,15 @@
+- all_months = 0
+- all_payments = 0
 
 - @monthly_earnings.keys.each do |key|
   %b= key
   = "Earned: #{@monthly_earnings[key]}"
   %br
+  -all_months = all_months + 1
+  - all_payments = all_payments + @monthly_earnings[key]
+
+= "Months working: #{all_months}"
+%br
+= "Earned: #{all_payments} EUR"
+%br
+= "Per month: #{all_payments/all_months} EUR"
