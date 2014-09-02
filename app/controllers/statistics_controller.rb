@@ -5,6 +5,8 @@ class StatisticsController < ApplicationController
 
     date_key = ""
     @monthly_earnings = {}
+    @yearly_earnings = {}
+    @company_earnings = {}
 
 
     @earnings.each do |earning|
@@ -14,6 +16,20 @@ class StatisticsController < ApplicationController
       else
         @monthly_earnings[earning_date] = earning.price
       end
+
+      yearly_earning_date = earning.payed_at.strftime("%Y")
+      if @yearly_earnings.has_key?(yearly_earning_date)
+        @yearly_earnings[yearly_earning_date] = @yearly_earnings[yearly_earning_date] + earning.price
+      else
+        @yearly_earnings[yearly_earning_date] = earning.price
+      end
+
+      if @company_earnings.has_key?(earning.our_company_id)
+        @company_earnings[earning.our_company_id] = @company_earnings[earning.our_company_id] + earning.price
+      else
+        @company_earnings[earning.our_company_id] = earning.price
+      end
+
     end
 
     starting_date = Date.parse("1-2-2012")
@@ -26,6 +42,15 @@ class StatisticsController < ApplicationController
       starting_date = starting_date + 1.month
     end
 
+    starting_date = Date.parse("1-2-2012")
+    while starting_date.strftime("%Y") != Date.today.strftime("%Y") do
+      if !@yearly_earnings.has_key?(starting_date.strftime("%Y"))
+        @yearly_earnings[starting_date.strftime("%Y")] = 0
+      end
+      starting_date = starting_date + 1.month
+    end
+
   end
+
 
 end

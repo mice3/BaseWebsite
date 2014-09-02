@@ -1,15 +1,46 @@
-- all_months = 0
-- all_payments = 0
 
-- @monthly_earnings.keys.each do |key|
-  %b= key
-  = "Earned: #{@monthly_earnings[key]}"
-  %br
-  -all_months = all_months + 1
-  - all_payments = all_payments + @monthly_earnings[key]
+.row
+  .col-md-4
+    - all_months = 0
+    - all_payments = 0
+    - @monthly_earnings.keys.each do |key|
+      %b= key
+      = "Earned: #{@monthly_earnings[key]}"
+      %br
+      -all_months = all_months + 1
+      - all_payments = all_payments + @monthly_earnings[key]
 
-= "Months working: #{all_months}"
-%br
-= "Earned: #{all_payments} EUR"
-%br
-= "Per month: #{all_payments/all_months} EUR"
+    = "Months working: #{all_months}"
+    %br
+    = "Earned: #{all_payments} EUR"
+    %br
+    = "Per month: #{all_payments/all_months} EUR"
+  .col-md-4
+    - all_years = 0
+    - all_payments_year = 0
+    - @yearly_earnings.keys.each do |key|
+      %b= key
+      = "Earned: #{@yearly_earnings[key]}"
+      %br
+      - all_years = all_years + 1
+      - all_payments_year = all_payments_year + @yearly_earnings[key]
+    = "Years working: #{all_years}"
+    %br
+    = "Earned: #{all_payments_year} EUR"
+    %br
+    = "Per year: #{all_payments_year/all_years} EUR"
+  .col-md-4
+    - all_companies = 0
+    - all_payments_company = 0
+
+    - @company_earnings.keys.each do |key|
+      %b= OurCompany.find(key).name
+      = "Earned: #{@company_earnings[key]}"
+      %br
+      - all_companies = all_companies + 1
+      - all_payments_company = all_payments_company + @company_earnings[key]
+    = "Companies working: #{all_companies}"
+    %br
+    = "Earned: #{all_payments_company} EUR"
+    %br
+    = "Per year: #{all_payments_company/all_companies} EUR"
