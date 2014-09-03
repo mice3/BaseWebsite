@@ -11,6 +11,6 @@ class M3TableAdmin::InvoicesController < M3TableAdmin::ApplicationController
       @table.add_column "price", "text", {"form" => false}
       @table.add_nested_fields "invoice_items", {"fields" => ["description", "price", "discount"], "index" => false}
       @table.add_date_column "sent_at"
-
+      @table.sort_type = "sent_at DESC"
     end
 end

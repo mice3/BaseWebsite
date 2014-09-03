@@ -13,5 +13,6 @@ class M3TableAdmin::ExpensesController < M3TableAdmin::ApplicationController
       @table.add_column "currency", "text"
       @table.add_column "description", "text"
       @table.add_date_column "spended_at"
+      @table.sort_type = "spended_at DESC"
     end
 end

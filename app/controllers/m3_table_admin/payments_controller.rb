@@ -13,5 +13,6 @@ class M3TableAdmin::PaymentsController < M3TableAdmin::ApplicationController
       @table.add_column "currency", "text"
       @table.add_column "description", "text"
       @table.add_date_column "payed_at"
+      @table.sort_type = "payed_at DESC"
     end
 end
