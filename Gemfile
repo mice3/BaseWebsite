@@ -37,6 +37,10 @@ gem "haml-rails"
 
 gem 'simple_form', '~> 3.0.2'
 
+gem 'countries', '~> 0.9.3'
+
+gem 'country_select', '~> 2.0.0'
+
 gem 'm3_table_admin', :git => "git://github.com/mice3/M3TableAdmin.git"
 
 gem "paperclip"

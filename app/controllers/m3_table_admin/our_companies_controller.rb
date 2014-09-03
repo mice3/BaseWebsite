@@ -9,7 +9,7 @@ class M3TableAdmin::OurCompaniesController < M3TableAdmin::ApplicationController
       @table.add_column("address", "text", {"index" => false})
       @table.add_column("zip_code", "text", {"index" => false})
       @table.add_column("city", "text", {"index" => false})
-      # @table.add_column("country", "text", {"index" => false})
+      @table.add_column("country", "text", {"index" => false})
       @table.add_column("trr", "text", {"index" => false})
       @table.add_column("bank", "text", {"index" => false})
       @table.add_column("swift_bic_code", "text", {"index" => false})

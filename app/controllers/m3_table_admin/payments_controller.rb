@@ -12,6 +12,6 @@ class M3TableAdmin::PaymentsController < M3TableAdmin::ApplicationController
       @table.add_column "price", "text"
       @table.add_column "currency", "text"
       @table.add_column "description", "text"
-      @table.add_timestamp_column "payed_at", "%Y-%m-%d"
+      @table.add_date_column "payed_at"
     end
 end

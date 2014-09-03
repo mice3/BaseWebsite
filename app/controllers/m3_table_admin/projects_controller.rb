@@ -18,7 +18,5 @@ class M3TableAdmin::ProjectsController < M3TableAdmin::ApplicationController
 
       @table.add_column "status", "select", {:collection => ["published", "unpublished"]}
 
-      @table.add_column "created_at", "datetime"
-
     end
 end
