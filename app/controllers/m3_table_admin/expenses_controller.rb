@@ -12,6 +12,6 @@ class M3TableAdmin::ExpensesController < M3TableAdmin::ApplicationController
       @table.add_column "price", "text"
       @table.add_column "currency", "text"
       @table.add_column "description", "text"
-      @table.add_timestamp_column "spended_at", "%Y-%m-%d"
+      @table.add_date_column "spended_at"
     end
 end

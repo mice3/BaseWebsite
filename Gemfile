@@ -78,8 +78,6 @@ gem "choices", "0.3.2"
 gem 'omniauth-facebook', '~> 1.6.0'
 gem 'omniauth-google-oauth2', '~> 0.2.4'
 
-gem 'country-select'
-
 gem 'jquery-ui-rails' #jquery nice menus and other goodies https://github.com/joliss/jquery-ui-rails
 
 # pdf generation
