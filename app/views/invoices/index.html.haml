@@ -9,6 +9,10 @@
     %b= "Invoice for project: "
     = invoice.project.name
     %br
+  - if invoice.our_company.present?
+    %b= "Invoice on our company: "
+    = invoice.our_company.name
+    %br
   - payed_style = "color:red;"
   - if invoice.price == invoice.payments_sum
     - payed_style = "color:green;"

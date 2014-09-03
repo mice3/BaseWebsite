@@ -15,9 +15,14 @@ class User < ActiveRecord::Base
 
   scope :active, -> { where(deleted: false) }
   scope :authenticatable, ->{ where(enabled: true).active }
-  scope :m3_table_admin_autocomplete_scope, ->(q, user = nil) { where("email LIKE ?", "%#{q}%") }
+  scope :m3_table_admin_autocomplete_scope, ->(q, user = nil) { where("email LIKE ?", "%#{q}%").select("email as value, id as id") }
+  scope :autocomplete_scope, ->(q, user = nil) { where("email LIKE ?", "%#{q}%").select("email as value, id as id") }
 
   def m3_table_admin_autocomplete_label
+    email + " (id = #{id})"
+  end
+
+  def autocomplete_label
     email + " (id = #{id})"
   end
 

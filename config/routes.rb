@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     resources :our_companies
     resources :expense_categories
     resources :invoices
+    resources :expenses
+    resources :payments
   end
 
   get '/pages/*slug' => 'pages#show', :as => 'page'
