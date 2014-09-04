@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   end
 
   resources 'earnings', to: 'statistics#earnings'
+  resources 'salaries', to: 'statistics#salaries'
 
   resources :sessions, only: [:new, :create, :destroy] #we limit to just those actions, because we dont need other actions
   match '/signup',  to: 'users#new', via: 'get'

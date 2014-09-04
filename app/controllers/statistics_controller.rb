@@ -52,5 +52,22 @@ class StatisticsController < ApplicationController
 
   end
 
+  def salaries
+    @salaries = Expense.salaries
+    @payments = Payment.all
+    @expenses = Expense.all
+    @taxes = Expense.taxes
+    @dohodnina = Expense.dohodnina
+
+    @user_salaries = {}
+
+    @salaries.each do |salary|
+      if @user_salaries.has_key?(salary.user.email)
+        @user_salaries[salary.user.email] = @user_salaries[salary.user.email] + salary.price
+      else
+        @user_salaries[salary.user.email] = salary.price
+      end
+    end
+  end
 
 end

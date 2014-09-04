@@ -1,0 +1,11 @@
+= "All salaries #{@salaries.sum("price")}"
+%br
+= "All payments #{@payments.sum("price")}"
+%br
+= "All expenses #{@expenses.sum("price")} -> Taxes #{@taxes.sum("price")} + Dohodnina #{@dohodnina.sum("price")}"
+%br
+
+- @user_salaries.keys.each do |key|
+  %b= key
+  = "Earned: #{@user_salaries[key]}"
+  %br
