@@ -60,6 +60,7 @@ class StatisticsController < ApplicationController
     @dohodnina = Expense.dohodnina
 
     @user_salaries = {}
+    @user_month_salaries = {}
 
     @salaries.each do |salary|
       if @user_salaries.has_key?(salary.user.email)
@@ -76,7 +77,20 @@ class StatisticsController < ApplicationController
       end
     end
 
+    @salaries.each do |salary|
+      spended_date = salary.spended_at.strftime("%m-%Y")
+      if @user_month_salaries.has_key?(spended_date)
+        @user_month_salaries[spended_date] << salary
+      else
+        @user_month_salaries[spended_date] = Array.new
+        @user_month_salaries[spended_date] << salary
+      end
+
+    end
+
+
 
   end
+
 
 end

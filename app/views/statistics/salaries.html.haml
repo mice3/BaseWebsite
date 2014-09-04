@@ -17,3 +17,12 @@
   %b= key
   = "Earned: #{@user_salaries[key]} to get: #{(@max_salary - @user_salaries[key])}"
   %br
+
+- @user_month_salaries.keys.each do |key|
+  %b= key
+  %br
+  - @user_month_salaries[key].each do |month_salary|
+    = month_salary.user.email
+    = month_salary.price
+    %br
+  %br
