@@ -68,6 +68,15 @@ class StatisticsController < ApplicationController
         @user_salaries[salary.user.email] = salary.price
       end
     end
+
+    @max_salary = 0
+    @user_salaries.keys.each do |key|
+      if @user_salaries[key] > @max_salary
+        @max_salary = @user_salaries[key]
+      end
+    end
+
+
   end
 
 end
