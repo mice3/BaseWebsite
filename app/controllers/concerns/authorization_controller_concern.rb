@@ -22,7 +22,7 @@ module AuthorizationControllerConcern
 
   # Checks if current user is authorized for controller/action.
   def authorized?
-    return true
+    return false
   end
 
   # Called when access is restricted.
