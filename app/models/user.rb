@@ -43,6 +43,13 @@ class User < ActiveRecord::Base
     !deleted?
   end
 
+  def admin?
+    if "admin" == role
+      return true
+    end
+    false
+  end
+
   ##################################
   #oauth - Facebook and Googlestuff#
   #################################

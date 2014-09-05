@@ -1,20 +1,23 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
+
+  include AuthorizationControllerConcern
+  include SessionsControllerConcern
+
   protect_from_forgery with: :exception
   http_basic_authenticate_with name: "mice3", password: "Topniska45"
   respond_to :html
 
-  include SessionsControllerConcern
 
-    def autocomplete
-      @return_objects = []
-      if defined?(params[:type]) && defined?(params[:term])
-        @return_objects = params[:type].camelize.constantize.autocomplete_scope(params[:term], nil).limit(20)
-      end
-
-      render json: @return_objects.to_json
+  def autocomplete
+    @return_objects = []
+    if defined?(params[:type]) && defined?(params[:term])
+      @return_objects = params[:type].camelize.constantize.autocomplete_scope(params[:term], nil).limit(20)
     end
+
+    render json: @return_objects.to_json
+  end
 
 
   # Returns currently authenticated user.

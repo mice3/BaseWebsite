@@ -12,5 +12,6 @@ class M3TableAdmin::UsersController < M3TableAdmin::ApplicationController
     def set_table
       @table = M3TableAdmin::Table.new("users")
       @table.add_column("email", "text", {"index" => true})
+      @table.add_column("role", "text", {"index" => true})
     end
 end
