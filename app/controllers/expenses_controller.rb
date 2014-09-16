@@ -3,7 +3,7 @@ class ExpensesController < ApplicationController
 
 
   def index
-    @expenses = Expense.all
+    @expenses = Expense.order("updated_at DESC").all
   end
 
   def new

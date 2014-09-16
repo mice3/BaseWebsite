@@ -6,8 +6,13 @@ class AutocompleteInput < SimpleForm::Inputs::StringInput
     path = template.autocomplete_path
     relation_object_name = nil
 
+    puts "asdasdasd"
+    puts relation_table
+    puts table
+    table = "scrum_task"
     relation_object_type = table.camelize.constantize.reflect_on_association(relation_table.to_sym).class_name
 
+    puts "22222"
     if object.send(relation_table) != nil
       rel = object.send(relation_table)
       relation_object_name = rel.autocomplete_label

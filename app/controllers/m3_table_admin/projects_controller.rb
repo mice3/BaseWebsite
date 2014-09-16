@@ -17,6 +17,6 @@ class M3TableAdmin::ProjectsController < M3TableAdmin::ApplicationController
       @table.add_column "image", "attachment", {"index" => false}
 
       @table.add_column "status", "select", {:collection => ["published", "unpublished"]}
-
+      @table.sort_type = "id DESC"
     end
 end

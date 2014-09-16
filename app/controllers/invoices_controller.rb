@@ -30,7 +30,7 @@ class InvoicesController < ApplicationController
   end
 
   def index
-    @invoices = Invoice.all
+    @invoices = Invoice.order("updated_at DESC").all
   end
 
   def edit

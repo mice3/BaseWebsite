@@ -3,7 +3,7 @@ class PaymentsController < ApplicationController
 
 
   def index
-    @payments = Payment.all
+    @payments = Payment.order("updated_at DESC").all
   end
 
   def new
