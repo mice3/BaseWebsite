@@ -1,37 +1,44 @@
 - if @task_statistic
-  - @task_statistic.keys.each do |key|
-    %h4= key
-    = "All hours on project: #{@task_statistic[key]['count']/60} hours"
-    - @task_statistic[key].keys.each do |key2|
-      - if "count" != key2
-        %br
-        = "#{key2} planed: #{@task_statistic[key][key2]['planed']/60} hours ... worked: #{@task_statistic[key][key2]['used']/60} hours"
-    %br
+  %div
+    - @task_statistic.keys.each do |key|
+      %div{:style => "float:left; margin-right: 10px;"}
+        %h4= key
+        = "All hours on project: #{@task_statistic[key]['count']/60} hours"
+        - @task_statistic[key].keys.each do |key2|
+          - if "count" != key2
+            %br
+            = "#{key2} planed: #{@task_statistic[key][key2]['planed']/60} hours ... worked: #{@task_statistic[key][key2]['used']/60} hours"
+  %div{:style => "clear:both; margin-top: 20px;"}
+    %h2="User statistics"
+    - @user_statistics.keys.each do |key|
+      %div
+        = "#{key} has planned: #{@user_statistics[key]['total_planed']/60} hours and worked for: #{@user_statistics[key]['total_used']/60} hours"
+
+%div{:style => "clear:both; margin-top: 20px;"}
+  = @scrum.date
   %br
-= @scrum.date
-%br
-= @scrum.finished_at
-%br
-- @scrum.scrum_tasks.order("user_id ASC").each do |scrum_task|
-  .col-md-4
-    .thumbnail
-      - if scrum_task.user
-        = scrum_task.user.email
+  = @scrum.finished_at
+  %br
+  - @scrum.scrum_tasks.order("user_id ASC").each do |scrum_task|
+    .col-md-4
+      .thumbnail
+        - if scrum_task.user
+          = scrum_task.user.email
+          %br
+        - if scrum_task.project
+          = scrum_task.project.name
+          %br
+        = scrum_task.description
         %br
-      - if scrum_task.project
-        = scrum_task.project.name
+        = "#{scrum_task.hours_planned} h #{scrum_task.minutes_planned} min"
         %br
-      = scrum_task.description
-      %br
-      = "#{scrum_task.hours_planned} h #{scrum_task.minutes_planned} min"
-      %br
-      = "#{scrum_task.hours_used} h #{scrum_task.minutes_used} min"
-      %br
-      - if !scrum_task.not_finished_or_overtime_justification.blank?
-        = scrum_task.not_finished_or_overtime_justification
+        = "#{scrum_task.hours_used} h #{scrum_task.minutes_used} min"
         %br
-      = link_to "Edit", edit_task_scrums_path(:id => scrum_task.id)
+        - if !scrum_task.not_finished_or_overtime_justification.blank?
+          = scrum_task.not_finished_or_overtime_justification
+          %br
+        = link_to "Edit", edit_task_scrums_path(:id => scrum_task.id)
 
 
-= link_to "New scrum", new_scrum_path
-= link_to "Edit scrum", edit_scrum_path(@scrum.id)
+  = link_to "New scrum", new_scrum_path
+  = link_to "Edit scrum", edit_scrum_path(@scrum.id)

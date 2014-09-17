@@ -55,6 +55,7 @@ class ScrumsController < ApplicationController
     end
 
     @task_statistic = {}
+    @user_statistics = {}
     tasks.each do |task|
 
       if @task_statistic.has_key?(task.project.name)
@@ -67,9 +68,16 @@ class ScrumsController < ApplicationController
           @task_statistic[task.project.name][task.user.email] = {"planed" => task.hours_planned*60 + task.minutes_planned, "used" => task.hours_used*60 + task.minutes_used}
         end
       else
-        puts task.project.name
         @task_statistic[task.project.name] = {"count" => (task.hours_used*60 + task.minutes_used), task.user.email => {"planed" => task.hours_planned*60 + task.minutes_planned, "used" => (task.hours_used*60 + task.minutes_used)}}
       end
+
+      if @user_statistics.has_key?(task.user.email)
+        @user_statistics[task.user.email]["total_used"] = @user_statistics[task.user.email]["total_used"] + (task.hours_used*60 + task.minutes_used)
+        @user_statistics[task.user.email]["total_planed"] = @user_statistics[task.user.email]["total_planed"] + (task.hours_planned*60 + task.minutes_planned)
+      else
+        @user_statistics[task.user.email] = {"total_used" => (task.hours_used*60 + task.minutes_used), "total_planed" => (task.hours_planned*60 + task.minutes_planned)}
+      end
+
     end
 
     render :show
