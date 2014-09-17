@@ -5,7 +5,7 @@
     - @task_statistic[key].keys.each do |key2|
       - if "count" != key2
         %br
-        = "#{key2} planed: #{@task_statistic[key][key2]['planed']/60} hours ... used: #{@task_statistic[key][key2]['planed']/60} hours"
+        = "#{key2} planed: #{@task_statistic[key][key2]['planed']/60} hours ... worked: #{@task_statistic[key][key2]['used']/60} hours"
     %br
   %br
 = @scrum.date
