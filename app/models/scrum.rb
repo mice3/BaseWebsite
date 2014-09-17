@@ -3,4 +3,6 @@ class Scrum < ActiveRecord::Base
 
   accepts_nested_attributes_for :scrum_tasks, allow_destroy: true #, reject_if: :reject_experience_date
 
+  scope :for_current_month, -> month { where("EXTRACT(MONTH from date) = ?", month) }
+
 end

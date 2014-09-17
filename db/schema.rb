@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140903111148) do
+ActiveRecord::Schema.define(version: 20140917112145) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,6 +160,10 @@ ActiveRecord::Schema.define(version: 20140903111148) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "scrum_id"
+    t.integer  "hours_planned",                          default: 0
+    t.integer  "minutes_planned",                        default: 0
+    t.integer  "hours_used",                             default: 0
+    t.integer  "minutes_used",                           default: 0
   end
 
   create_table "scrums", force: true do |t|

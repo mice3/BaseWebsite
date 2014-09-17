@@ -1,3 +1,15 @@
+- @task_statistic.keys.each do |key|
+  = key
+  %br
+  = "All hours on project: #{@task_statistic[key]['count']}"
+  - @task_statistic[key].keys.each do |key2|
+    - if "count" != key2
+      %br
+      = "#{key2} planed: #{@task_statistic[key][key2]['planed']} used: #{@task_statistic[key][key2]['planed']}"
+
+%br
+%br
+%br
 = @scrum.date
 %br
 = @scrum.finished_at
@@ -13,12 +25,10 @@
         %br
       = scrum_task.description
       %br
-      - if scrum_task.time_to_do
-        = scrum_task.time_to_do.strftime("%k hours %M minutes")
-        %br
-      - if scrum_task.time_used
-        = scrum_task.time_used.strftime("%k hours %M minutes")
-        %br
+      = "#{scrum_task.hours_planned} h #{scrum_task.minutes_planned} min"
+      %br
+      = "#{scrum_task.hours_used} h #{scrum_task.minutes_used} min"
+      %br
       - if !scrum_task.not_finished_or_overtime_justification.blank?
         = scrum_task.not_finished_or_overtime_justification
         %br
@@ -26,3 +36,4 @@
 
 
 = link_to "New scrum", new_scrum_path
+= link_to "Edit scrum", edit_scrum_path(@scrum.id)

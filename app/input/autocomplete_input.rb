@@ -6,21 +6,27 @@ class AutocompleteInput < SimpleForm::Inputs::StringInput
     path = template.autocomplete_path
     relation_object_name = nil
 
-    puts "asdasdasd"
-    puts relation_table
-    puts table
-    table = "scrum_task"
+    if table.to_s.include?("scrum_tasks_attributes")
+      table = "scrum_task"
+    end
+
     relation_object_type = table.camelize.constantize.reflect_on_association(relation_table.to_sym).class_name
 
-    puts "22222"
     if object.send(relation_table) != nil
       rel = object.send(relation_table)
       relation_object_name = rel.autocomplete_label
     end
 
     textfield_id = "autocomplete_"+table+"_#{attribute_name}_id"
+    autocomplete_element_name = "#{table}_#{attribute_name.to_s}_id"
+    if "scrum_task" == table
+      textfield_id = "autocomplete_scrum_"+table+"_0_#{attribute_name}_id"
+      autocomplete_element_name = "scrum_scrum_tasks_attributes_0_#{attribute_name.to_s}_id"
+    end
     out = ""
-    out << template.text_field_tag(table + "[#{attribute_name}_id]", relation_object_name, :id => textfield_id)
+    if "scrum_task" == table
+      out << template.text_field_tag("scrum[scrum_tasks_attributes][0][#{attribute_name}_id]", relation_object_name, :id => textfield_id)
+    end
     out << @builder.hidden_field("#{attribute_name}_id")
     out << ""
 
@@ -37,7 +43,8 @@ class AutocompleteInput < SimpleForm::Inputs::StringInput
                   },
                   select: function( event, ui ) {
                     $(this).val((ui.item ? ui.item.value : ""));
-                    $("#'+ table + '_' + attribute_name.to_s + '_id").val((ui.item ? ui.item.id : ""));
+                    console.log("asdasd");
+                    $("#'+ autocomplete_element_name +'").val((ui.item ? ui.item.id : ""));
                     $(this).blur();
                   }
                   ,
@@ -54,3 +61,4 @@ class AutocompleteInput < SimpleForm::Inputs::StringInput
     template.raw(out)
   end
 end
+#$("#'+ table + '_' + attribute_name.to_s + '_id").val((ui.item ? ui.item.id : ""));

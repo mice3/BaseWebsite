@@ -1,4 +1,5 @@
 class ScrumsController < ApplicationController
+  before_action :load_scrum, only: [:edit, :show, :update]
 
   def index
     @scrums = Scrum.all
@@ -7,6 +8,23 @@ class ScrumsController < ApplicationController
   def new
     @scrum = Scrum.new
     @scrum.scrum_tasks.build
+  end
+
+  def edit
+    @scrum.scrum_tasks.build
+  end
+
+  def update
+    @scrum.update(scrum_params)
+    respond_to do |format|
+
+      @errors = @scrum.errors
+      if @errors.count > 0
+        format.js
+      else
+        format.js { render js: %(Turbolinks.visit('#{scrum_path(@scrum.id)}')) }
+      end
+    end
   end
 
   def create
@@ -25,6 +43,30 @@ class ScrumsController < ApplicationController
 
   def last
     @scrum = Scrum.last
+    @current_month_scrums = Scrum.for_current_month(Date.today.strftime("%m").to_i)
+
+    tasks = []
+    @current_month_scrums.each do |current_month_scrum|
+      tasks = tasks + current_month_scrum.scrum_tasks
+    end
+    puts tasks.to_yaml
+
+    @task_statistic = {}
+    tasks.each do |task|
+      if @task_statistic.has_key?(task.project.name)
+        @task_statistic[task.project.name]["count"] = @task_statistic[task.project.name]["count"] + (task.hours_used*60 + task.minutes_used)
+        if @task_statistic[task.project.name].has_key?(task.user.email)
+          @task_statistic[task.project.name][task.user.email]["planed"] = @task_statistic[task.project.name][task.user.email]["planed"] + task.hours_planned*60 + task.minutes_planned
+          @task_statistic[task.project.name][task.user.email]["used"] = @task_statistic[task.project.name][task.user.email]["used"] + task.hours_used*60 + task.minutes_used
+        else
+          @task_statistic[task.project.name][task.user.email] = {"planed" => task.hours_planned*60 + task.minutes_planned, "used" => task.hours_used*60 + task.minutes_used}
+        end
+      else
+        @task_statistic = {task.project.name => {"count" => 0, task.user.email => {"planed" => 0, "used" => 0}} }
+      end
+    end
+    puts @task_statistic.to_yaml
+
     render :show
   end
 
@@ -56,4 +98,7 @@ class ScrumsController < ApplicationController
       params.require(:scrum_task).permit!
     end
 
+    def load_scrum
+      @scrum = Scrum.find(params[:id])
+    end
 end
