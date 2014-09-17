@@ -1,9 +1,9 @@
 = f.input :user, as: :autocomplete
 = f.input :project, as: :autocomplete
 = f.input :description, as: :text
-= f.input :hours_planned, as: :select, collection: 1..60
+= f.input :hours_planned, as: :select, collection: 0..60
 = f.input :minutes_planned, as: :select, collection: [0,15,30,45]
-= f.input :hours_used, as: :select, collection: 1..60
+= f.input :hours_used, as: :select, collection: 0..60
 = f.input :minutes_used, as: :select, collection: [0,15,30,45]
 = f.input :not_finished_or_overtime_justification, as: :text
 / %br

@@ -1,6 +1,10 @@
 class ScrumsController < ApplicationController
   before_action :load_scrum, only: [:edit, :show, :update]
 
+  def show
+
+  end
+
   def index
     @scrums = Scrum.all
   end
@@ -49,12 +53,14 @@ class ScrumsController < ApplicationController
     @current_month_scrums.each do |current_month_scrum|
       tasks = tasks + current_month_scrum.scrum_tasks
     end
-    puts tasks.to_yaml
 
     @task_statistic = {}
     tasks.each do |task|
+
       if @task_statistic.has_key?(task.project.name)
+        puts task.project.name
         @task_statistic[task.project.name]["count"] = @task_statistic[task.project.name]["count"] + (task.hours_used*60 + task.minutes_used)
+
         if @task_statistic[task.project.name].has_key?(task.user.email)
           @task_statistic[task.project.name][task.user.email]["planed"] = @task_statistic[task.project.name][task.user.email]["planed"] + task.hours_planned*60 + task.minutes_planned
           @task_statistic[task.project.name][task.user.email]["used"] = @task_statistic[task.project.name][task.user.email]["used"] + task.hours_used*60 + task.minutes_used
@@ -62,10 +68,10 @@ class ScrumsController < ApplicationController
           @task_statistic[task.project.name][task.user.email] = {"planed" => task.hours_planned*60 + task.minutes_planned, "used" => task.hours_used*60 + task.minutes_used}
         end
       else
-        @task_statistic = {task.project.name => {"count" => 0, task.user.email => {"planed" => 0, "used" => 0}} }
+        puts task.project.name
+        @task_statistic[task.project.name] = {"count" => (task.hours_used*60 + task.minutes_used), task.user.email => {"planed" => task.hours_planned*60 + task.minutes_planned, "used" => (task.hours_used*60 + task.minutes_used)}}
       end
     end
-    puts @task_statistic.to_yaml
 
     render :show
   end

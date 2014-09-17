@@ -20,12 +20,14 @@ class AutocompleteInput < SimpleForm::Inputs::StringInput
     textfield_id = "autocomplete_"+table+"_#{attribute_name}_id"
     autocomplete_element_name = "#{table}_#{attribute_name.to_s}_id"
     if "scrum_task" == table
-      textfield_id = "autocomplete_scrum_"+table+"_0_#{attribute_name}_id"
-      autocomplete_element_name = "scrum_scrum_tasks_attributes_0_#{attribute_name.to_s}_id"
+      textfield_id = "autocomplete_scrum_"+table+"_#{@builder.index}_#{attribute_name}_id"
+      autocomplete_element_name = "scrum_scrum_tasks_attributes_#{@builder.index}_#{attribute_name.to_s}_id"
     end
     out = ""
     if "scrum_task" == table
-      out << template.text_field_tag("scrum[scrum_tasks_attributes][0][#{attribute_name}_id]", relation_object_name, :id => textfield_id)
+      out << template.text_field_tag("scrum[scrum_tasks_attributes][#{@builder.index}][#{attribute_name}_id]", relation_object_name, :id => textfield_id)
+    else
+      out << template.text_field_tag(table + "[#{attribute_name}_id]", relation_object_name, :id => textfield_id)
     end
     out << @builder.hidden_field("#{attribute_name}_id")
     out << ""

@@ -1,15 +1,13 @@
-- @task_statistic.keys.each do |key|
-  = key
+- if @task_statistic
+  - @task_statistic.keys.each do |key|
+    %h4= key
+    = "All hours on project: #{@task_statistic[key]['count']/60} hours"
+    - @task_statistic[key].keys.each do |key2|
+      - if "count" != key2
+        %br
+        = "#{key2} planed: #{@task_statistic[key][key2]['planed']/60} hours ... used: #{@task_statistic[key][key2]['planed']/60} hours"
+    %br
   %br
-  = "All hours on project: #{@task_statistic[key]['count']}"
-  - @task_statistic[key].keys.each do |key2|
-    - if "count" != key2
-      %br
-      = "#{key2} planed: #{@task_statistic[key][key2]['planed']} used: #{@task_statistic[key][key2]['planed']}"
-
-%br
-%br
-%br
 = @scrum.date
 %br
 = @scrum.finished_at
