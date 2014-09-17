@@ -58,7 +58,6 @@ class ScrumsController < ApplicationController
     tasks.each do |task|
 
       if @task_statistic.has_key?(task.project.name)
-        puts task.project.name
         @task_statistic[task.project.name]["count"] = @task_statistic[task.project.name]["count"] + (task.hours_used*60 + task.minutes_used)
 
         if @task_statistic[task.project.name].has_key?(task.user.email)
