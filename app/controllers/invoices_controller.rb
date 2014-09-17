@@ -23,7 +23,7 @@ class InvoicesController < ApplicationController
   def show
     respond_to do |format|
       format.pdf do
-        render :pdf => "invoice", :template => 'invoices/show.haml'
+        render :pdf => "invoice", :template => 'invoices/show.haml', :layout => 'paper'
       end
       format.html
     end

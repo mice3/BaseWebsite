@@ -1,0 +1,9 @@
+%html
+  %head
+    / = stylesheet_link_tag "paper/paper", media: "all", "data-turbolinks-track" => true
+    %meta{ "http-equiv" => "Content-Type", :content => "text/html; charset=UTF-8" }
+  %body{:style => "background:white"}
+    = yield
+
+    :javascript
+      setTimeout(function(){window.print();}, 1000);
