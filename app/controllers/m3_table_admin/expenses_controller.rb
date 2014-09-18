@@ -14,5 +14,12 @@ class M3TableAdmin::ExpensesController < M3TableAdmin::ApplicationController
       @table.add_column "description", "text"
       @table.add_date_column "spended_at"
       @table.sort_type = "spended_at DESC"
+
+      @table.custom_header = true
+      @expenses_ammount = Expense.all.sum(:price)
+      @salaries_ammount = Expense.salaries.sum(:price)
+      @taxes_ammount = Expense.taxes.sum(:price)
+      @dohodnina_ammount = Expense.dohodnina.sum(:price)
+      @misc_ammount = Expense.misc.sum(:price)
     end
 end

@@ -5,8 +5,8 @@ class Scrum < ActiveRecord::Base
 
   scope :for_current_month, -> month { where("EXTRACT(MONTH from date) = ?", month) }
 
-  scope :m3_table_admin_autocomplete_scope, ->(q, user = nil) { where("date LIKE ?", "%#{q}%").select("date as value, id as id") }
-  scope :autocomplete_scope, ->(q, user = nil) { where("date LIKE ?", "%#{q}%").select("date as value, id as id") }
+  scope :m3_table_admin_autocomplete_scope, ->(q, user = nil) { where("date ILIKE ?", "%#{q}%").select("date as value, id as id") }
+  scope :autocomplete_scope, ->(q, user = nil) { where("date ILIKE ?", "%#{q}%").select("date as value, id as id") }
 
 
   def m3_table_admin_autocomplete_label

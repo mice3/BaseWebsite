@@ -4,8 +4,8 @@ class Payment < ActiveRecord::Base
   belongs_to :invoice
   has_many :expenses
 
-  scope :autocomplete_scope, ->(q, user = nil) { where("description LIKE ?", "%#{q}%").select("description as value, id as id") }
-  scope :m3_table_admin_autocomplete_scope, ->(q, user = nil) { where("description LIKE ?", "%#{q}%").select("description as value, id as id") }
+  scope :autocomplete_scope, ->(q, user = nil) { where("description ILIKE ?", "%#{q}%").select("description as value, id as id") }
+  scope :m3_table_admin_autocomplete_scope, ->(q, user = nil) { where("description ILIKE ?", "%#{q}%").select("description as value, id as id") }
 
   after_save :change_invoice_status
 

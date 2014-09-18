@@ -17,4 +17,9 @@ class Expense < ActiveRecord::Base
     joins(:expense_category)
     .where("nice_id IN (?) ", ["akontacija_dohodnine", "akontacija_dohodnine_cresnik_sp", "akontacija_dohodnine_nagode_sp"])
   }
+
+  scope :misc, -> {
+    joins(:expense_category)
+    .where("nice_id IN (?) ", ["misc", "party"])
+  }
 end

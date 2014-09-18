@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/mice3/M3TableAdmin.git
-  revision: 6e0506b56397804bc9b7479ac47052853f6db276
+  revision: acfb51c30a76aea9d28a2f0cc7bd1be3628fa9e4
   specs:
     m3_table_admin (0.0.1)
       bootstrap-sass (~> 3.1.1.1)
