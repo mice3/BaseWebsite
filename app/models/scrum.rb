@@ -3,7 +3,7 @@ class Scrum < ActiveRecord::Base
 
   accepts_nested_attributes_for :scrum_tasks, allow_destroy: true #, reject_if: :reject_experience_date
 
-  scope :for_current_month, -> month { where("EXTRACT(MONTH from date) = ?", month) }
+  scope :for_current_month, -> month { where("EXTRACT(MONTH from date) = ?", month).order("date DESC") }
 
   scope :m3_table_admin_autocomplete_scope, ->(q, user = nil) { where("date ILIKE ?", "%#{q}%").select("date as value, id as id") }
   scope :autocomplete_scope, ->(q, user = nil) { where("date ILIKE ?", "%#{q}%").select("date as value, id as id") }

@@ -89,7 +89,11 @@ class ScrumsController < ApplicationController
         @daily_user_work[task.scrum.date] = {task.user.email => (task.hours_used*60 + task.minutes_used)}
       end
     end
-    puts @daily_user_work.to_yaml
+    @all_users = []
+    User.all.each do |user|
+      @all_users << user.email
+    end
+
     render :show
   end
 
