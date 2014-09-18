@@ -2,24 +2,27 @@
 - start_date = Date.new(today_date.year, today_date.month , 1)
 - end_date = Date.new(today_date.year, today_date.month, today_date.day)
 - days_counter = 0
-- (start_date..end_date).each do |day|
-  .col-md-2{:style => "height: 100px; border: 1px solid;"}
-    %b= "#{day} #{day.strftime('%A').downcase}"
-    %br
-    - if @daily_user_work[day]
-      - @daily_user_work[day].keys.each do |key2|
-        - time_working = @daily_user_work[day][key2]/60
-        = "#{key2[0,1]} - #{time_working} h"
-        %br
-      - (@all_users.to_a - @daily_user_work[day].keys).each do |email|
-        = "#{email[0,1]} !!"
-        %br
-    - else
-      - if "sunday" == day.strftime('%A').downcase || "saturday" == day.strftime('%A').downcase
-        = "Weekend"
-      - else
-        = "Why no one worked?"
+.row
+  - (start_date..end_date).each do |day|
+    .col-md-2{:style => "height: 100px; border: 1px solid;"}
+      %b= "#{day} #{day.strftime('%A').downcase}"
+      %br
+      - if @daily_user_work[day]
         - days_counter = days_counter + 1
+        - @daily_user_work[day].keys.each do |key2|
+          - time_working = @daily_user_work[day][key2]/60
+          = "#{key2[0,1]} -> #{time_working} h"
+          %br
+        - (@all_users.to_a - @daily_user_work[day].keys).each do |email|
+          %font{:style => "color: red;"}= "#{email[0,1]} -> !!"
+          %br
+      - else
+        - if "sunday" == day.strftime('%A').downcase || "saturday" == day.strftime('%A').downcase
+          = "Weekend"
+        - else
+          = "Why no one worked?"
+          - days_counter = days_counter + 1
+
 
 %br
 = "Number of working days: #{days_counter} and hours #{days_counter*8}"
@@ -56,15 +59,27 @@
 /         %br
 
 - if @task_statistic
-  %div
+  %br
+  .row
     - @task_statistic.keys.each do |key|
-      %div{:style => "float:left; margin-right: 10px;"}
-        %h4= key
-        = "All hours on project: #{@task_statistic[key]['count']/60} hours"
+      .col-md-2{:style => "height: 100px; border: 1px solid;"}
+        %b= key
+        %br
+        = "All: #{@task_statistic[key]['count']/60} hours"
+        %br
         - @task_statistic[key].keys.each do |key2|
           - if "count" != key2
+            = "#{key2[0,1]} -> P: #{@task_statistic[key][key2]['planed']/60} h / W: #{@task_statistic[key][key2]['used']/60} h"
             %br
-            = "#{key2} planed: #{@task_statistic[key][key2]['planed']/60} hours ... worked: #{@task_statistic[key][key2]['used']/60} hours"
+  / %div
+  /   - @task_statistic.keys.each do |key|
+  /     %div{:style => "float:left; margin-right: 10px;"}
+  /       %h4= key
+  /       = "All hours on project: #{@task_statistic[key]['count']/60} hours"
+  /       - @task_statistic[key].keys.each do |key2|
+  /         - if "count" != key2
+  /           %br
+  /           = "#{key2} planed: #{@task_statistic[key][key2]['planed']/60} hours ... worked: #{@task_statistic[key][key2]['used']/60} hours"
   / %div{:style => "clear:both; margin-top: 20px;"}
   /   %h2="User statistics"
   /   - @user_statistics.keys.each do |key|
