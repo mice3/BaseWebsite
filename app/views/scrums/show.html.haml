@@ -12,9 +12,9 @@
           %font{:style => "color: red;"}= "#{key2} worked #{time_working} you should get a vacation day"
         - else
           = "#{key2} worked #{time_working}"
-        %br
         - (@all_users.to_a - @daily_user_work[key].keys).each do |email|
           %font{:style => "color: red;"}= "#{email} did not work at all. Get a vacation day!"
+        %br
 
 - if @task_statistic
   %div
