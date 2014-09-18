@@ -45,7 +45,7 @@ class Invoice < ActiveRecord::Base
   end
 
   def payment_difference
-    "Ammount: #{price} #{currency} / Payed #{payments_sum} #{currency} "
+    "Ammount: #{price} #{currency} / Paid #{payments_sum} #{currency} "
   end
 
 end

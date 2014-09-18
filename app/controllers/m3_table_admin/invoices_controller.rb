@@ -11,16 +11,16 @@ class M3TableAdmin::InvoicesController < M3TableAdmin::ApplicationController
       @table.add_column "due_days", "text"
       @table.add_column "payment_difference", "text", {"form" => false}
       @table.add_date_column "sent_at"
-      @table.add_dropdown_column "status", Invoice::STATUSES
+      @table.add_dropdown_column "status", Invoice::STATUSES, {"index" => false}
       @table.add_nested_fields "invoice_items", {"fields" => ["description", "price", "discount"], "index" => false}
       @table.sort_type = "sent_at DESC"
       @table.additional_table_buttons = true
       @table.custom_header = true
-      # @table.filter_statuses = Invoice::STATUSES
-      # @table.filter_status = "sent"
-      # if params["filter_status"]
-      #   @table.filter_status = params["filter_status"]
-      # end
+      @table.filter_statuses = Invoice::STATUSES
+      @table.filter_status = "sent"
+      if params["filter_status"]
+        @table.filter_status = params["filter_status"]
+      end
 
       @invoices_ammount = Invoice.all.sum(:price)
       @payments_ammount = Payment.all.sum(:price)
