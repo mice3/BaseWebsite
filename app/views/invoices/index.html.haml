@@ -1,31 +1,28 @@
-= link_to "New invoice", new_invoice_path
-- total_invoices = 0
+/ = link_to "New invoice", new_invoice_path
+/ - total_invoices = 0
 %br
 - @invoices.each do |invoice|
-  - if invoice.sent_at
-    %b= l invoice.sent_at.to_date, format: :default
-  %br
-  - if invoice.project.present?
-    %b= "Invoice for project: "
-    = invoice.project.name
+  - if invoice.price != invoice.payments_sum
+    - if invoice.sent_at
+      %b= l invoice.sent_at.to_date, format: :default
     %br
-  - if invoice.our_company.present?
-    %b= "Invoice on our company: "
-    = invoice.our_company.name
+    - if invoice.project.present?
+      %b= "Invoice for project: "
+      = invoice.project.name
+      %br
+    - if invoice.our_company.present?
+      %b= "Invoice on our company: "
+      = invoice.our_company.name
+      %br
+    %b{ :style => "color:red;"}= "Ammount: #{invoice.price} #{invoice.currency} / Payed #{invoice.payments_sum} #{invoice.currency} "
     %br
-  - payed_style = "color:red;"
-  - if invoice.price == invoice.payments_sum
-    - payed_style = "color:green;"
-  %b{ :style => payed_style}= "Ammount: #{invoice.price} #{invoice.currency} / Payed #{invoice.payments_sum} #{invoice.currency} "
-  %br
-  - if invoice.storno?
-    %b="STORNO"
+    - if invoice.storno?
+      %b="STORNO"
+      %br
+    /   - total_invoices = total_invoices - invoice.price
+    / - else
+    /   - total_invoices = total_invoices + invoice.price
+    / = link_to "show", invoice
+    / = link_to "edit", edit_invoice_path(invoice)
     %br
-    - total_invoices = total_invoices - invoice.price
-  - else
-    - total_invoices = total_invoices + invoice.price
-  = link_to "show", invoice
-  = link_to "edit", edit_invoice_path(invoice)
-  %br
-  %br
-= "Total invoices #{total_invoices}"
+  / = "Total invoices #{total_invoices}"

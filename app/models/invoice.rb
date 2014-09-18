@@ -8,6 +8,8 @@ class Invoice < ActiveRecord::Base
 
   scope :autocomplete_scope, ->(q, user = nil) { where("invoice_number LIKE ?", "%#{q}%").select("invoice_number as value, id as id") }
 
+  attr_accessor :payment_difference
+
   def storno?
     storno
   end
@@ -22,6 +24,10 @@ class Invoice < ActiveRecord::Base
 
   def autocomplete_label
     invoice_number
+  end
+
+  def payment_difference
+    "Ammount: #{price} #{currency} / Payed #{payments_sum} #{currency} "
   end
 
 end

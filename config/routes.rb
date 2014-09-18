@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     resources :expenses
     resources :payments
     resources :scrum_tasks
+    resources :scrums
+    resources :vacations
   end
 
   get '/pages/*slug' => 'pages#show', :as => 'page'
