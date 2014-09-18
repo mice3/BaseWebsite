@@ -1,4 +1,12 @@
 = link_to "New scrum", new_scrum_path
+- if @daily_user_work
+  %div
+    - @daily_user_work.keys.each do |key|
+      %b= key
+      %br
+      - @daily_user_work[key].keys.each do |key2|
+        = "#{key2} worked #{@daily_user_work[key][key2]}"
+        %br
 
 - if @task_statistic
   %div

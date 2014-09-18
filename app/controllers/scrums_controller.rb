@@ -56,6 +56,7 @@ class ScrumsController < ApplicationController
 
     @task_statistic = {}
     @user_statistics = {}
+    @daily_user_work = {}
     tasks.each do |task|
 
       if @task_statistic.has_key?(task.project.name)
@@ -78,10 +79,21 @@ class ScrumsController < ApplicationController
         @user_statistics[task.user.email] = {"total_used" => (task.hours_used*60 + task.minutes_used), "total_planed" => (task.hours_planned*60 + task.minutes_planned)}
       end
 
+      if @daily_user_work.has_key?(task.scrum.date)
+        if @daily_user_work[task.scrum.date].has_key?(task.user.email)
+          @daily_user_work[task.scrum.date][task.user.email] = @daily_user_work[task.scrum.date][task.user.email] + (task.hours_used*60 + task.minutes_used)
+        else
+          @daily_user_work[task.scrum.date][task.user.email] = (task.hours_used*60 + task.minutes_used)
+        end
+      else
+        @daily_user_work[task.scrum.date] = {task.user.email => (task.hours_used*60 + task.minutes_used)}
+      end
     end
-
+    puts @daily_user_work.to_yaml
     render :show
   end
+
+
 
   def edit_task
     @scrum_task = ScrumTask.find(params[:id])

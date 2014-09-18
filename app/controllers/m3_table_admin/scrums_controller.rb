@@ -9,8 +9,8 @@ class M3TableAdmin::ScrumsController < M3TableAdmin::ApplicationController
       @table.add_date_column "date"
       @table.add_date_column "finished_at"
       @table.sort_type = "id DESC"
-      # @table.enable_destroy = false
-      # @table.enable_edit = false
-      # @table.enable_add_new = false
+      @table.enable_destroy = false
+      @table.enable_edit = false
+      @table.enable_add_new = false
     end
 end
