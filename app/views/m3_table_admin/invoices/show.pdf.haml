@@ -46,7 +46,7 @@
     = "VAT TAX."
     = "Not Applicable"
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 20px;"}
-    = "PAYMENT DUE 8 DAYS"
+    = "PAYMENT DUE #{@object.due_days} DAYS"
 
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 20px;"}
     = "For deposit to the account of #{our_company.name} with:"

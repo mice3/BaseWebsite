@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140917181146) do
+ActiveRecord::Schema.define(version: 20140918121736) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20140917181146) do
     t.string   "invoice_number"
     t.datetime "sent_at"
     t.boolean  "storno",                                  default: false, null: false
+    t.integer  "due_days"
   end
 
   create_table "oauths", force: true do |t|

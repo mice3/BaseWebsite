@@ -8,6 +8,7 @@ class M3TableAdmin::InvoicesController < M3TableAdmin::ApplicationController
       @table.add_autocomplete_column "project", "name"
       @table.add_autocomplete_column "our_company", "name"
       @table.add_column "invoice_number", "text"
+      @table.add_column "due_days", "text"
       @table.add_column "payment_difference", "text", {"form" => false}
       @table.add_nested_fields "invoice_items", {"fields" => ["description", "price", "discount"], "index" => false}
       @table.add_date_column "sent_at"
