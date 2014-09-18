@@ -8,12 +8,14 @@
 
 %div{:style => "clear: both; margin-top: 20px; overflow: auto"}
   %div{:style => "float:left; margin: 0px 0;"}
-    = "#{our_company.name}, #{our_company.address} #{our_company.zip_code} #{our_company.city}, #{our_company.country}"
+    = "#{our_company.name}, #{our_company.address} #{our_company.zip_code} #{our_company.city}, #{Country[our_company.country]}"
   %div{:style => "float:left; margin: 0px 0; clear:left;"}
     = "Registration number: #{our_company.registration_number}, VAT number: #{our_company.vat_number}, VAT not applicable"
   %div{:style => "float:left; margin: 0px 0; clear:left;"}
+    %br
     %b="Invoice number: #{@object.invoice_number}"
   %div{:style => "float:right; margin: 0px 0;"}
+    %br
     %b= l @object.created_at.to_date, format: :default
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 10px;"}
     = @object.project.partner.name
@@ -22,13 +24,14 @@
     %br
     = "#{@object.project.partner.zip_code} #{@object.project.partner.city}"
     %br
-    = @object.project.partner.country
+    = Country[@object.project.partner.country]
     %br
     %br
     %b="Attention #{@object.project.partner.attention_to}"
     %br
     %br
     %hr{:style => "width: 650px; margin-left: 10px"}
+  %div{:style => "clear: both; margin-bottom: 10px;"}
     ="Summary:"
   %table{:style => table_style, :cellspacing => 0}
     - @object.invoice_items.each do |invoice_item|
@@ -59,7 +62,7 @@
     %br
     = "Swift BIC code: #{our_company.swift_bic_code}"
     %br
-    = our_company.country
+    = Country[our_company.country]
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 20px;"}
     = "VAT is not charged according to the art. 94 of Slovenia VAT law"
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 20px;"}
