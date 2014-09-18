@@ -10,8 +10,26 @@ class Invoice < ActiveRecord::Base
 
   attr_accessor :payment_difference
 
+  STATUSES = %w(sent paid_part paid_all paid_more storno cancelled)
+
   def storno?
     storno
+  end
+
+  def paid_part!
+    puts "part paid"
+    self.status = "paid_part"
+    save!
+  end
+
+  def paid_all!
+    self.status = "paid_all"
+    save!
+  end
+
+  def paid_more!
+    self.status = "paid_more"
+    save!
   end
 
   def payments_sum

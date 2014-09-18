@@ -1,7 +1,6 @@
 class PaymentsController < ApplicationController
   before_action :load_payment, only: [:edit, :show, :update]
 
-
   def index
     @payments = Payment.order("updated_at DESC").all
   end
