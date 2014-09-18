@@ -2,7 +2,7 @@
 - if @daily_user_work
   %div
     - @daily_user_work.keys.each do |key|
-      %b= key
+      %b= "#{key} #{key.strftime('%A').downcase}"
       %br
       - @daily_user_work[key].keys.each do |key2|
         - time_working = @daily_user_work[key][key2]/60
@@ -15,7 +15,7 @@
         %br
       - (@all_users.to_a - @daily_user_work[key].keys).each do |email|
         %font{:style => "color: red;"}= "#{email} did not work at all. Get a vacation day!"
-      %br
+        %br
 
 - if @task_statistic
   %div
