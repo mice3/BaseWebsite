@@ -2,20 +2,20 @@
 - start_date = Date.new(today_date.year, today_date.month , 1)
 - end_date = Date.new(today_date.year, today_date.month, today_date.day)
 - (start_date..end_date).each do |day|
-  .col-md-2
+  .col-md-2{:style => "height: 100px; border: 1px solid;"}
     %b= "#{day} #{day.strftime('%A').downcase}"
     %br
     - if @daily_user_work[day]
       - @daily_user_work[day].keys.each do |key2|
         - time_working = @daily_user_work[day][key2]/60
-        %br
-        = "#{key2} - #{time_working} hours"
+        = "#{key2[0,1]} - #{time_working} h"
         %br
       - (@all_users.to_a - @daily_user_work[day].keys).each do |email|
-        = "#{email} did not work at all. Get a vacation day!"
+        = "#{email[0,1]} !!"
+        %br
     - else
       - if "sunday" == day.strftime('%A').downcase || "saturday" == day.strftime('%A').downcase
-        = "Weekend no worky"
+        = "Weekend"
       - else
         = "Why no one worked?"
 %br
