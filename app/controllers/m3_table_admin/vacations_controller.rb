@@ -12,5 +12,22 @@ class M3TableAdmin::VacationsController < M3TableAdmin::ApplicationController
       @table.add_column "days", "text"
 
       @table.sort_type = "id DESC"
+
+      @table.custom_header = true
+
+      @user_vacations = {}
+      Vacation.all.each do |vacation|
+        year = vacation.start_date.strftime("%Y")
+        if @user_vacations.has_key?(vacation.user.email)
+          if @user_vacations[vacation.user.email].has_key?(year)
+            @user_vacations[vacation.user.email][year] = @user_vacations[vacation.user.email][year] + vacation.days
+          else
+            @user_vacations[vacation.user.email][year] = vacation.days
+          end
+        else
+          @user_vacations[vacation.user.email] = { year => vacation.days }
+        end
+
+      end
     end
 end

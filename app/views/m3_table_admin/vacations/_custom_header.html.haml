@@ -1,0 +1,6 @@
+- @user_vacations.keys.each do |key|
+  %b=key
+
+  - @user_vacations[key].keys.each do |key2|
+    = "#{key2}: #{@user_vacations[key][key2]} days"
+  %br
