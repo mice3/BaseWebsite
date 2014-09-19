@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     resources :scrums
     resources :vacations
     resources :wanted_salaries
+    resources :average_salaries
+    resources :minimum_salaries
   end
 
   get '/pages/*slug' => 'pages#show', :as => 'page'
