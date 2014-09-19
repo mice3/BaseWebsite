@@ -4,12 +4,15 @@
     - date_shorter = date.strftime("%m-%Y")
     - monthly_earnings = @monthly_earnings[date_shorter]
 
-    .col-md-2{:style => "border: 1px solid;"}
+    .col-md-2{:style => "border: 1px solid; height: 70px;"}
       %b= date_shorter
       %br
       - if !monthly_earnings.blank?
-        - if monthly_earnings < (@all_users.count * 1000)
-          %font{:style => "color: #FF9933;"}= "#{monthly_earnings} EUR"
+        - wanted_net = @all_users.count * WantedSalary.wanted_salary_for_date(date).first.net
+        - if monthly_earnings < wanted_net
+          %font{:style => "color: #FF9933;"}= "#{monthly_earnings} EUR , w: #{wanted_net} EUR "
+          %br
+          %font{:style => "color: #CC3333;"}="d:#{wanted_net-monthly_earnings}"
         - else
           %font{:style => "color: green;"}= "#{monthly_earnings} EUR"
         - per_month = per_month + monthly_earnings

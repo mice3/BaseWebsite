@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140918130150) do
+ActiveRecord::Schema.define(version: 20140919161915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "average_salaries", force: true do |t|
+    t.decimal  "net",        precision: 15, scale: 2, default: 0.0
+    t.decimal  "gross",      precision: 15, scale: 2, default: 0.0
+    t.string   "country"
+    t.integer  "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "expense_categories", force: true do |t|
     t.string   "name"
@@ -68,6 +77,15 @@ ActiveRecord::Schema.define(version: 20140918130150) do
     t.boolean  "storno",                                  default: false, null: false
     t.integer  "due_days"
     t.string   "status"
+  end
+
+  create_table "minimum_salaries", force: true do |t|
+    t.decimal  "net",        precision: 15, scale: 2, default: 0.0
+    t.decimal  "gross",      precision: 15, scale: 2, default: 0.0
+    t.string   "country"
+    t.integer  "year"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "oauths", force: true do |t|
@@ -195,6 +213,14 @@ ActiveRecord::Schema.define(version: 20140918130150) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "start_date"
+  end
+
+  create_table "wanted_salaries", force: true do |t|
+    t.decimal  "net",        precision: 15, scale: 2, default: 0.0
+    t.date     "valid_from"
+    t.date     "valid_to"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
