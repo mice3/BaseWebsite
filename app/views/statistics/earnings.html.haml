@@ -1,5 +1,6 @@
 .row
   - per_month = 0
+  - wanted_all = 0
   - @dates_array.each do |date|
     - date_shorter = date.strftime("%m-%Y")
     - monthly_earnings = @monthly_earnings[date_shorter]
@@ -9,6 +10,7 @@
       %br
       - if !monthly_earnings.blank?
         - wanted_net = @all_users.count * WantedSalary.wanted_salary_for_date(date).first.net
+        - wanted_all = wanted_all + wanted_net
         - if monthly_earnings < wanted_net
           %font{:style => "color: #FF9933;"}= "#{monthly_earnings} EUR , w: #{wanted_net} EUR "
           %br
@@ -21,7 +23,14 @@
   %div{:style => "clear:left;"}
     = "Average per month:"
     %b=" #{(per_month / @dates_array.count).round(2)} EUR"
-
+    %br
+    = "All per month:"
+    %b=" #{per_month.round(2)} EUR"
+    %br
+    = "Wanted per month:"
+    %b=" #{wanted_all.round(2)} EUR"
+    =", difference between wanted and earned"
+    %b="#{(wanted_all - per_month).round(2)} EUR"
 .row
   - per_year = 0
   - @yearly_earnings.keys.each do |key|
