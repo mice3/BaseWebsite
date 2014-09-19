@@ -14,7 +14,12 @@
           = "#{key2[0,1]} -> #{time_working} h"
           %br
         - (@all_users.to_a - @daily_user_work[day].keys).each do |email|
-          %font{:style => "color: red;"}= "#{email[0,1]} -> !!"
+
+          - if Vacation.for_user_at_date(email, day).count > 0
+            %font{:style => "color: green;"}= "#{email[0,1]} -> On vacation"
+          - else
+            %font{:style => "color: red;"}= "#{email[0,1]} -> "
+            = link_to "Add vacation", new_m3_table_admin_vacation_path, {:style => "color: red;"}
           %br
       - else
         - if "sunday" == day.strftime('%A').downcase || "saturday" == day.strftime('%A').downcase
