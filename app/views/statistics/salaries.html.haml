@@ -1,28 +1,29 @@
 - all_salaries = @salaries.sum("price")
-- all_payments = @payments.sum("price")
-- all_expenses = @expenses.sum("price")
-- all_taxes = @taxes.sum("price")
-- all_dohodnina = @dohodnina.sum("price")
-
-= "All salaries #{all_salaries}"
-%br
-= "All payments #{all_payments}"
-%br
-= "All expenses #{all_expenses} -> Taxes #{all_taxes} + Dohodnina #{all_dohodnina}"
-%br
-= "Balance #{all_payments - all_expenses}"
-%br
-
-- @user_salaries.keys.each do |key|
-  %b= key
-  = "Earned: #{@user_salaries[key]} to get: #{(@max_salary - @user_salaries[key])}"
+.row
+  - @user_salaries.keys.each do |key|
+    .col-md-3{:style => "border: 1px solid; height: 70px;"}
+      %b= key
+      %br
+      = "Earned: #{@user_salaries[key]}"
+      %br
+      =" To get: #{(@max_salary - @user_salaries[key])}"
   %br
-
-- @user_month_salaries.keys.each do |key|
-  %b= key
-  %br
-  - @user_month_salaries[key].each do |month_salary|
-    = month_salary.user.email
-    = month_salary.price
+  %div{:style => "clear:left;"}
+    = "All salaries #{all_salaries}"
+.row
+- @dates_array.each do |date|
+  .col-md-2{:style => "border: 1px solid; height: 100px;"}
+    - date_shorter = date.strftime("%m-%Y")
+    %b= date_shorter
     %br
-  %br
+    - if @user_month_salaries.has_key? (date_shorter)
+      - @user_month_salaries[date_shorter].each do |month_salary|
+        = month_salary.user.email[0,1]
+        = month_salary.price
+    - else
+      = "No pay"
+    %br
+
+
+
+

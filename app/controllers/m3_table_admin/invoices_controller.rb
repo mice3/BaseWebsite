@@ -25,5 +25,7 @@ class M3TableAdmin::InvoicesController < M3TableAdmin::ApplicationController
       @invoices_ammount = Invoice.all.sum(:price)
       @payments_ammount = Payment.all.sum(:price)
       @cancelled_ammount = Invoice.where("status='cancelled'").sum(:price)
+      @storno_ammount = Invoice.where("status='storno'").sum(:price)
+      @invoices_ammount = @invoices_ammount - @storno_ammount
     end
 end

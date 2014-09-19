@@ -17,7 +17,7 @@
         %font{:style => "color: red;"}= "0 EUR"
   %div{:style => "clear:left;"}
     = "Average per month:"
-    %b=" #{per_month / @dates_array.count} EUR"
+    %b=" #{(per_month / @dates_array.count).round(2)} EUR"
 
 .row
   - per_year = 0
@@ -29,7 +29,7 @@
       = "#{@yearly_earnings[key]} EUR"
   %div{:style => "clear:left;"}
     = "Average per year:"
-    %b=" #{per_year / @yearly_earnings.keys.count} EUR"
+    %b=" #{(per_year / @yearly_earnings.keys.count).round(2)} EUR"
 
 .row
   - per_company = 0
@@ -41,5 +41,5 @@
       = "#{@company_earnings[key]} EUR"
   %div{:style => "clear:left;"}
     = "Average per company:"
-    %b=" #{per_company / @company_earnings.keys.count} EUR"
+    %b=" #{(per_company / @company_earnings.keys.count).round(2)} EUR"
 

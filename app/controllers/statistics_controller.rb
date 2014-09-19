@@ -1,4 +1,5 @@
 class StatisticsController < ApplicationController
+  before_action :load_months, :load_users
 
   def earnings
     @earnings = Payment.all.order("payed_at DESC")
@@ -32,15 +33,7 @@ class StatisticsController < ApplicationController
 
     end
 
-
-
     starting_date = Date.parse("1-2-2012")
-    @dates_array = []
-    @dates_array << starting_date
-    while starting_date.strftime("%m-%Y") != Date.today.strftime("%m-%Y")
-      starting_date = starting_date + 1.month
-      @dates_array << starting_date
-    end
 
     while starting_date.strftime("%m-%Y") != Date.today.strftime("%m-%Y") do
       if !@monthly_earnings.has_key?(starting_date.strftime("%m-%Y"))
@@ -57,10 +50,7 @@ class StatisticsController < ApplicationController
       starting_date = starting_date + 1.month
     end
 
-    @all_users = []
-    User.all.each do |user|
-      @all_users << user.email
-    end
+
   end
 
   def salaries
@@ -98,10 +88,23 @@ class StatisticsController < ApplicationController
       end
 
     end
-
-
-
   end
 
+  def load_months
+    starting_date = Date.parse("1-2-2012")
+    @dates_array = []
+    @dates_array << starting_date
+    while starting_date.strftime("%m-%Y") != Date.today.strftime("%m-%Y")
+      starting_date = starting_date + 1.month
+      @dates_array << starting_date
+    end
+  end
+
+  def load_users
+    @all_users = []
+    User.all.each do |user|
+      @all_users << user.email
+    end
+  end
 
 end
