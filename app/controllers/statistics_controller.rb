@@ -56,7 +56,11 @@ class StatisticsController < ApplicationController
       end
       starting_date = starting_date + 1.month
     end
-    puts @dates_array.to_yaml
+
+    @all_users = []
+    User.all.each do |user|
+      @all_users << user.email
+    end
   end
 
   def salaries
