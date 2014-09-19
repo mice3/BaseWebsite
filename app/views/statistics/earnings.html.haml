@@ -5,6 +5,11 @@
   - slo_gross_average_salary = 0
   - usa_developer_minimum_salary = 0
   - usa_developer_average_salary = 0
+
+  - slo_net_minimum_salary = 0
+  - slo_net_average_salary = 0
+  - usa_developer_minimum_salary_net = 0
+  - usa_developer_average_salary_net = 0
   - @dates_array.each do |date|
     - date_shorter = date.strftime("%m-%Y")
     - monthly_earnings = @monthly_earnings[date_shorter]
@@ -13,35 +18,18 @@
       %b= date_shorter
       %br
       - if !monthly_earnings.blank?
+
         - wanted_net = @all_users.count * WantedSalary.wanted_salary_for_date(date).first.net
         - wanted_all = wanted_all + wanted_net
-        - min_query = MinimumSalary.for_year_and_country(date.strftime("%Y"), "SI").first
-        - if min_query
-          - min_query = min_query.gross
-        - else
-          - min_query = 0
-        - slo_gross_minimum_salary = slo_gross_minimum_salary + (min_query * 3)
 
-        - avg_query = AverageSalary.for_year_and_country(date.strftime("%Y"), "SI").first
-        - if avg_query
-          - avg_query = avg_query.gross
-        - else
-          - avg_query = 0
-        - slo_gross_average_salary = slo_gross_average_salary + (avg_query * 3)
-
-        - min_usa_query = MinimumSalary.for_year_and_country(date.strftime("%Y"), "US").first
-        - if min_usa_query
-          - min_usa_query = min_usa_query.gross
-        - else
-          - min_usa_query = 0
-        - usa_developer_minimum_salary = usa_developer_minimum_salary + (min_usa_query * 3)
-
-        - avg_usa_query = AverageSalary.for_year_and_country(date.strftime("%Y"), "US").first
-        - if avg_usa_query
-          - avg_usa_query = avg_usa_query.gross
-        - else
-          - avg_usa_query = 0
-        - usa_developer_average_salary = usa_developer_average_salary + (avg_usa_query * 3)
+        - slo_gross_minimum_salary = money_sum_gross(slo_gross_minimum_salary, MinimumSalary.for_year_and_country(date.strftime("%Y"), "SI").first)
+        - slo_gross_average_salary = money_sum_gross(slo_gross_average_salary, AverageSalary.for_year_and_country(date.strftime("%Y"), "SI").first)
+        - usa_developer_minimum_salary = money_sum_gross(usa_developer_minimum_salary, MinimumSalary.for_year_and_country(date.strftime("%Y"), "US").first)
+        - usa_developer_average_salary = money_sum_gross(usa_developer_average_salary, AverageSalary.for_year_and_country(date.strftime("%Y"), "US").first)
+        - slo_net_minimum_salary = money_sum_net(slo_net_minimum_salary, MinimumSalary.for_year_and_country(date.strftime("%Y"), "SI").first)
+        - slo_net_average_salary = money_sum_net(slo_net_average_salary, AverageSalary.for_year_and_country(date.strftime("%Y"), "SI").first)
+        - usa_developer_minimum_salary_net = money_sum_net(usa_developer_minimum_salary_net, MinimumSalary.for_year_and_country(date.strftime("%Y"), "US").first)
+        - usa_developer_average_salary_net = money_sum_net(usa_developer_average_salary_net, AverageSalary.for_year_and_country(date.strftime("%Y"), "US").first)
 
         - if monthly_earnings < wanted_net
           %font{:style => "color: #FF9933;"}= "#{monthly_earnings} EUR , w: #{wanted_net} EUR "
@@ -68,16 +56,16 @@
     %b="#{(wanted_all - per_month).round(2)} EUR"
     %br
     = "If we were working for a minimum slo gross pay we would have earned"
-    %b="#{slo_gross_minimum_salary} EUR"
+    %b="#{slo_gross_minimum_salary} EUR and net #{slo_net_minimum_salary} EUR"
     %br
     = "If we were working for a average slo gross pay we would have earned"
-    %b="#{slo_gross_average_salary} EUR"
+    %b="#{slo_gross_average_salary} EUR and net #{slo_net_average_salary} EUR"
     %br
     = "If we were working for a minimum usa gross pay we would have earned"
-    %b="#{usa_developer_minimum_salary} EUR"
+    %b="#{usa_developer_minimum_salary} EUR and net #{usa_developer_minimum_salary_net} EUR"
     %br
     = "If we were working for a average usa gross pay we would have earned"
-    %b="#{usa_developer_average_salary} EUR"
+    %b="#{usa_developer_average_salary} EUR and net #{usa_developer_average_salary_net} EUR"
 .row
   - per_year = 0
   - @yearly_earnings.keys.each do |key|
