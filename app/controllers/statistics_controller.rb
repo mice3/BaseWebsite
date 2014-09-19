@@ -32,8 +32,15 @@ class StatisticsController < ApplicationController
 
     end
 
-    starting_date = Date.parse("1-2-2012")
 
+
+    starting_date = Date.parse("1-2-2012")
+    @dates_array = []
+    @dates_array << starting_date
+    while starting_date.strftime("%m-%Y") != Date.today.strftime("%m-%Y")
+      starting_date = starting_date + 1.month
+      @dates_array << starting_date
+    end
 
     while starting_date.strftime("%m-%Y") != Date.today.strftime("%m-%Y") do
       if !@monthly_earnings.has_key?(starting_date.strftime("%m-%Y"))
@@ -49,7 +56,7 @@ class StatisticsController < ApplicationController
       end
       starting_date = starting_date + 1.month
     end
-
+    puts @dates_array.to_yaml
   end
 
   def salaries

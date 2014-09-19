@@ -1,10 +1,27 @@
+.row
+  - per_month = 0
+  - @dates_array.each do |date|
+    - date_shorter = date.strftime("%m-%Y")
+    - monthly_earnings = @monthly_earnings[date_shorter]
 
+    .col-md-2{:style => "border: 1px solid;"}
+      %b= date_shorter
+      %br
+      - if !monthly_earnings.blank?
+        %font{:style => "color: green;"}= "#{@monthly_earnings[date_shorter]} EUR"
+        - per_month = per_month + monthly_earnings
+      - else
+        %font{:style => "color: red;"}= "0 EUR"
+  %div{:style => "clear:left;"}
+    = "Average per month:"
+    %b=" #{per_month / @dates_array.count} EUR"
 .row
   .col-md-4
     - all_months = 0
     - all_payments = 0
     - @monthly_earnings.keys.each do |key|
       %b= key
+
       = "Earned: #{@monthly_earnings[key]}"
       %br
       -all_months = all_months + 1
