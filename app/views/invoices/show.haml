@@ -18,6 +18,8 @@
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 10px;"}
     = @invoice.project.partner.name
     %br
+    = "VAT number: " @invoice.project.partner.vat
+    %br
     = @invoice.project.partner.address
     %br
     = "#{@invoice.project.partner.zip_code} #{@invoice.project.partner.city}"
@@ -61,7 +63,10 @@
     %br
     = our_company.country
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 20px;"}
-    = "VAT is not charged according to the art. 94 of Slovenia VAT law"
+    - if @invoice.project.partner.footer_text
+      = @invoice.project.partner.footer_text
+    - else
+      = "VAT is not charged according to the art. 94 of Slovenia VAT law"
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 20px;"}
     %b= "If you have any questions concerning this invoice, please contact:"
     %br

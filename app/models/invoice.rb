@@ -6,7 +6,7 @@ class Invoice < ActiveRecord::Base
 
   accepts_nested_attributes_for :invoice_items, allow_destroy: true #, reject_if: :reject_experience_date
 
-  scope :autocomplete_scope, ->(q, user = nil) { where("invoice_number ILIKE ?", "%#{q}%").select("invoice_number as value, id as id") }
+  scope :autocomplete_scope, ->(q, user = nil) { where("invoice_number LIKE ?", "%#{q}%").select("invoice_number as value, id as id") }
 
   attr_accessor :payment_difference
 
