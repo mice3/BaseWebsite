@@ -19,6 +19,9 @@
     %b= l @object.created_at.to_date, format: :default
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 10px;"}
     = @object.project.partner.name
+    - if @invoice.project.partner.vat
+      %br
+      = "VAT number: #{@invoice.project.partner.vat}"
     %br
     = @object.project.partner.address
     %br
@@ -27,7 +30,7 @@
     = Country[@object.project.partner.country]
     %br
     %br
-    %b="Attention #{@object.project.partner.attention_to}"
+    %b="Attention: #{@object.project.partner.attention_to}"
     %br
     %br
     %hr{:style => "width: 650px; margin-left: 10px"}
@@ -64,7 +67,10 @@
     %br
     = Country[our_company.country]
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 20px;"}
-    = "VAT is not charged according to the art. 94 of Slovenia VAT law"
+    -if @invoice.project.partner.footer_text
+      = @invoice.project.partner.footer_text
+    - else
+      = "VAT is not charged according to the art. 94 of Slovenia VAT law"
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 20px;"}
     %b= "If you have any questions concerning this invoice, please contact:"
     %br
