@@ -17,9 +17,8 @@
     %b= l @invoice.created_at.to_date, format: :default
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 10px;"}
     = @invoice.project.partner.name
-    - if @invoice.project.partner.vat
-      %br
-      = "VAT number: #{@invoice.project.partner.vat}"
+    %br
+    = "VAT number: #{@invoice.project.partner.vat}"
     %br
     = @invoice.project.partner.address
     %br
@@ -28,7 +27,7 @@
     = @invoice.project.partner.country
     %br
     %br
-    %b="Attention #{@invoice.project.partner.attention_to}"
+    %b="Attention: #{@invoice.project.partner.attention_to}"
     %br
     %br
     %hr{:style => "width: 650px; margin-left: 10px"}
