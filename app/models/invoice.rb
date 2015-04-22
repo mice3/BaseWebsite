@@ -40,7 +40,7 @@ class Invoice < ActiveRecord::Base
     return tmp_payments_sum
   end
 
-  def autocomplete_label
+  def m3_table_admin_autocomplete_label
     invoice_number
   end
 

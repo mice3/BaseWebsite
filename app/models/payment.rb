@@ -19,13 +19,8 @@ class Payment < ActiveRecord::Base
     end
   end
 
-  def autocomplete_label
-    "payment - #{description}"
-  end
-
   def m3_table_admin_autocomplete_label
     "payment - #{description}"
   end
-
 
 end

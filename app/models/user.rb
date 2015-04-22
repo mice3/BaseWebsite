@@ -22,9 +22,6 @@ class User < ActiveRecord::Base
     email + " (id = #{id})"
   end
 
-  def autocomplete_label
-    email + " (id = #{id})"
-  end
 
   def to_label
     m3_table_admin_autocomplete_label
