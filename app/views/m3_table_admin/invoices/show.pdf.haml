@@ -8,15 +8,20 @@
 
 %div{:style => "clear: both; margin-top: 20px; overflow: auto"}
   %div{:style => "float:left; margin: 0px 0;"}
-    = "#{our_company.name}, #{our_company.address} #{our_company.zip_code} #{our_company.city}, #{Country[our_company.country]}"
-  %div{:style => "float:left; margin: 0px 0; clear:left;"}
-    = "Registration number: #{our_company.registration_number}, VAT number: #{our_company.vat_number}, VAT not applicable"
-  %div{:style => "float:left; margin: 0px 0; clear:left;"}
+    = "#{our_company.name}"
     %br
-    %b="Invoice number: #{@object.invoice_number}"
-  %div{:style => "float:right; margin: 0px 0;"}
+    = "#{our_company.address}, #{our_company.zip_code} #{our_company.city}, #{our_company.country}"
     %br
-    %b= l @object.created_at.to_date, format: :default
+    = "Registration number: #{our_company.registration_number}"
+    %br
+    = "Tel: #{our_company.contact_phone}"
+    %br
+    = "E-mail: #{our_company.contact_email}"
+    %br
+    %br
+  %div{:style => "float:left; margin: 0px 0; clear:left;"}
+    ="VAT number: #{our_company.vat_number}"
+
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 10px;"}
     = @object.project.partner.name
     %br
@@ -24,54 +29,78 @@
     %br
     = "#{@object.project.partner.zip_code} #{@object.project.partner.city}"
     %br
-    = Country[@object.project.partner.country]
+    = @object.project.partner.country
+    %br
+    ="Attention #{@object.project.partner.attention_to}"
     %br
     %br
-    %b="Attention #{@object.project.partner.attention_to}"
+  %div{:style => "float:left; margin: 0px 0; clear:left;"}
+    ="VAT number: #{@object.project.partner.vat_number}"
     %br
     %br
-    %hr{:style => "width: 650px; margin-left: 10px"}
-  %div{:style => "clear: both; margin-bottom: 10px;"}
-    ="Summary:"
+
+  %div{:style => "float:left; margin: 0px 0; clear:left;"}
+    %b="Invoice number: #{@object.invoice_number}"
+    %br
+    = "Invoice date: #{l @object.created_at.to_date, format: :default}"
+    %br
+    - if @object.sent_at
+      = "Payment due: #{l (@object.sent_at.to_date + 8.days), format: :default}"
+    - else
+      = 'Payment due: /'
+    %br
+    - if @object.service_delivered_at
+      = "Service delivered: #{l (@object.service_delivered_at.to_date), format: :default}"
+    - else
+      = "Service delivered: /"
+    %br
+    %br
   %table{:style => table_style, :cellspacing => 0}
-    - @object.invoice_items.each do |invoice_item|
+    %tr
+      %th{:style => th_style}='Serial no.'
+      %th{:style => th_style}='Service description'
+      %th{:style => th_style}='Quantity'
+      %th{:style => th_style}='Price in EUR per unit'
+      %th{:style => th_style}='Total amount in EUR'
+    - @object.invoice_items.each_with_index do |invoice_item, index|
       %tr
+        %td{:style => th_style}=(index+1)
         %td{:style => th_style}
           = "- #{invoice_item.description}"
-        %td{:style => th_style}= @object.currency
+        %td{:style => th_style}=1
+        %td{:style => th_style}= invoice_item.price
         %td{:style => th_style}= invoice_item.price
     %tr
-      %td{:style => th_style}
-        = "Total due"
-      %td{:style => th_style}= @object.currency
+      %td=""
+      %td=""
+      %td=""
+      %td{:style => th_style}= "Total amount in EUR"
       %td{:style => th_style}= @object.price
-  %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 20px;"}
-    = "VAT TAX."
-    = "Not Applicable"
-  %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 20px;"}
-    = "PAYMENT DUE #{@object.due_days} DAYS"
 
+  %br
+  %br
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 20px;"}
-    = "For deposit to the account of #{our_company.name} with:"
+    ="Please effect the payment of the above sum as follows:"
     %br
-    = our_company.bank
+    = "#{our_company.name}"
     %br
-    = our_company.trr
-    %br
-    = "Reference number: #{@object.invoice_number}"
+    = "Bank transfer to IBAN: #{our_company.trr}"
     %br
     = "Swift BIC code: #{our_company.swift_bic_code}"
     %br
-    = Country[our_company.country]
-  %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 20px;"}
-    = "VAT is not charged according to the art. 94 of Slovenia VAT law"
-  %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 20px;"}
-    %b= "If you have any questions concerning this invoice, please contact:"
+    = "Bank: #{our_company.bank}"
     %br
-    = our_company.contact_name
+    = our_company.country
     %br
-    = our_company.contact_phone
-    %br
-    = our_company.contact_email
+    = "Reference number: #{@object.invoice_number}"
+
+
+  %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 0px;"}
+    - if @object.additional_law
+      = @object.additional_law.description
+
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 20px;"}
     = "No signature or stamp required"
+  %div{:style => "float:right; margin: 0px 0; clear:left; margin-top: 0px;"}
+    = our_company.name
+

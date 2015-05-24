@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140919161915) do
+ActiveRecord::Schema.define(version: 20150524121717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "additional_laws", force: true do |t|
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "average_salaries", force: true do |t|
     t.decimal  "net",        precision: 15, scale: 2, default: 0.0
@@ -67,16 +73,18 @@ ActiveRecord::Schema.define(version: 20140919161915) do
 
   create_table "invoices", force: true do |t|
     t.integer  "project_id"
-    t.decimal  "price",          precision: 15, scale: 2, default: 0.0
-    t.string   "currency",                                default: "EUR", null: false
+    t.decimal  "price",                precision: 15, scale: 2, default: 0.0
+    t.string   "currency",                                      default: "EUR", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "our_company_id"
     t.string   "invoice_number"
     t.datetime "sent_at"
-    t.boolean  "storno",                                  default: false, null: false
+    t.boolean  "storno",                                        default: false, null: false
     t.integer  "due_days"
     t.string   "status"
+    t.datetime "service_delivered_at"
+    t.integer  "additional_law_id"
   end
 
   create_table "minimum_salaries", force: true do |t|
@@ -138,6 +146,7 @@ ActiveRecord::Schema.define(version: 20140919161915) do
     t.string   "city"
     t.string   "country"
     t.string   "attention_to"
+    t.string   "vat_number"
   end
 
   create_table "payments", force: true do |t|
