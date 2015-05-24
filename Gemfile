@@ -3,8 +3,7 @@ ruby '2.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
-# Use sqlite3 as the database for Active Record
-gem 'pg', '~> 0.17.1'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -53,6 +52,8 @@ group :development do
   gem 'quiet_assets' # quite noisy asset logging
 
   gem "binding_of_caller" #display private instance variable errors
+
+  gem 'sqlite3'
 end
 
 group :test do
@@ -73,6 +74,7 @@ end
 group :production do
   gem 'rails_12factor', '0.0.2' #needed for heroku
   # gem 'rails_serve_static_assets'
+  gem 'pg'
 end
 
 # Custom settings
@@ -87,6 +89,7 @@ gem 'jquery-ui-rails' #jquery nice menus and other goodies https://github.com/jo
 # pdf generation
 gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf'
+
 
 
 # Use unicorn as the app server

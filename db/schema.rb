@@ -11,16 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524121717) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "additional_laws", force: true do |t|
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20150422081919) do
 
   create_table "average_salaries", force: true do |t|
     t.decimal  "net",        precision: 15, scale: 2, default: 0.0
@@ -73,18 +64,16 @@ ActiveRecord::Schema.define(version: 20150524121717) do
 
   create_table "invoices", force: true do |t|
     t.integer  "project_id"
-    t.decimal  "price",                precision: 15, scale: 2, default: 0.0
-    t.string   "currency",                                      default: "EUR", null: false
+    t.decimal  "price",          precision: 15, scale: 2, default: 0.0
+    t.string   "currency",                                default: "EUR", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "our_company_id"
     t.string   "invoice_number"
     t.datetime "sent_at"
-    t.boolean  "storno",                                        default: false, null: false
+    t.boolean  "storno",                                  default: false, null: false
     t.integer  "due_days"
     t.string   "status"
-    t.datetime "service_delivered_at"
-    t.integer  "additional_law_id"
   end
 
   create_table "minimum_salaries", force: true do |t|
@@ -104,7 +93,7 @@ ActiveRecord::Schema.define(version: 20150524121717) do
     t.datetime "updated_at"
   end
 
-  add_index "oauths", ["provider", "uid"], name: "index_oauths_on_provider_and_uid", using: :btree
+  add_index "oauths", ["provider", "uid"], name: "index_oauths_on_provider_and_uid"
 
   create_table "our_companies", force: true do |t|
     t.string   "name"
@@ -146,7 +135,8 @@ ActiveRecord::Schema.define(version: 20150524121717) do
     t.string   "city"
     t.string   "country"
     t.string   "attention_to"
-    t.string   "vat_number"
+    t.string   "vat"
+    t.text     "footer_text"
   end
 
   create_table "payments", force: true do |t|
@@ -178,8 +168,8 @@ ActiveRecord::Schema.define(version: 20150524121717) do
     t.integer  "partner_id"
   end
 
-  add_index "projects", ["created_at"], name: "index_projects_on_created_at", using: :btree
-  add_index "projects", ["status"], name: "index_projects_on_status", using: :btree
+  add_index "projects", ["created_at"], name: "index_projects_on_created_at"
+  add_index "projects", ["status"], name: "index_projects_on_status"
 
   create_table "scrum_tasks", force: true do |t|
     t.integer  "user_id"

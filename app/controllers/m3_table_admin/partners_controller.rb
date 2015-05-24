@@ -11,6 +11,8 @@ class M3TableAdmin::PartnersController < M3TableAdmin::ApplicationController
       @table.add_column "city", "text", {"index" => true}
       @table.add_country_column "country", {"index" => true}
       @table.add_column "attention_to", "text", {"index" => true}
+      @table.add_column "vat", "text", {"index" => true}
+      @table.add_column "footer_text", "text", {"index" => true}
       @table.sort_type = "id DESC"
     end
 end
