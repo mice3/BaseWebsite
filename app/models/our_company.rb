@@ -3,6 +3,7 @@ class OurCompany < ActiveRecord::Base
   has_many :payments
 
   scope :autocomplete_scope, ->(q, user = nil) { where("name LIKE ?", "%#{q}%").select("name as value, id as id") }
+  scope :m3_table_admin_autocomplete_scope, ->(q, user = nil) { where("name LIKE ?", "%#{q}%").select("name as value, id as id") }
 
 
 

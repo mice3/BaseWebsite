@@ -1,4 +1,4 @@
--table_style = "border: 1px solid #ccc; width: 90%; border-right:none; border-bottom:none; margin-left: 40px;"
+-table_style = "border: 1px solid #ccc; width: 100%; border-right:none; border-bottom:none; margin-left: 0px;"
 -td_style = "border: 1px solid #ccc; border-top: none; border-left:none; padding: 5px;"
 -th_style = td_style + ""
 -th_left_style = td_style + "text-align: right;";
@@ -10,7 +10,7 @@
   %div{:style => "float:left; margin: 0px 0;"}
     = "#{our_company.name}"
     %br
-    = "#{our_company.address}, #{our_company.zip_code} #{our_company.city}, #{our_company.country}"
+    = "#{our_company.address}, #{our_company.zip_code} #{our_company.city}, #{Country[(our_company.country)]}"
     %br
     = "Registration number: #{our_company.registration_number}"
     %br
@@ -29,23 +29,20 @@
     %br
     = "#{@object.project.partner.zip_code} #{@object.project.partner.city}"
     %br
-    = @object.project.partner.country
+    = Country["#{(@object.project.partner.country)}"]
     %br
     ="Attention #{@object.project.partner.attention_to}"
     %br
     %br
-  %div{:style => "float:left; margin: 0px 0; clear:left;"}
     ="VAT number: #{@object.project.partner.vat_number}"
-    %br
-    %br
 
-  %div{:style => "float:left; margin: 0px 0; clear:left;"}
-    %b="Invoice number: #{@object.invoice_number}"
+  %div{:style => "float:right; margin: 65px 120px 20px 0px; "}
+    %b="Invoice number:  #{@object.invoice_number}"
     %br
-    = "Invoice date: #{l @object.created_at.to_date, format: :default}"
+    = "Invoice date:     #{l @object.created_at.to_date, format: :default}"
     %br
     - if @object.sent_at
-      = "Payment due: #{l (@object.sent_at.to_date + 8.days), format: :default}"
+      = "Payment due:    #{l (@object.sent_at.to_date + 8.days), format: :default}"
     - else
       = 'Payment due: /'
     %br
@@ -53,8 +50,10 @@
       = "Service delivered: #{l (@object.service_delivered_at.to_date), format: :default}"
     - else
       = "Service delivered: /"
-    %br
-    %br
+
+  %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 10px; font-style: italic;"}
+    %b="Invoice refers to inovice dated 07.04.2015"
+
   %table{:style => table_style, :cellspacing => 0}
     %tr
       %th{:style => th_style}='Serial no.'
@@ -64,18 +63,18 @@
       %th{:style => th_style}='Total amount in EUR'
     - @object.invoice_items.each_with_index do |invoice_item, index|
       %tr
-        %td{:style => th_style}=(index+1)
+        %td{:style => "#{th_style} text-align: right;"}=(index+1)
         %td{:style => th_style}
-          = "- #{invoice_item.description}"
-        %td{:style => th_style}=1
-        %td{:style => th_style}= invoice_item.price
-        %td{:style => th_style}= invoice_item.price
+          = "#{invoice_item.description}"
+        %td{:style => "#{th_style} text-align: right;"}=1
+        %td{:style => "#{th_style} text-align: right;"}= number_to_currency invoice_item.price
+        %td{:style => "#{th_style} text-align: right;"}= number_to_currency invoice_item.price
     %tr
-      %td=""
-      %td=""
-      %td=""
+      %td{:style => th_style}=""
+      %td{:style => th_style}=""
+      %td{:style => th_style}=""
       %td{:style => th_style}= "Total amount in EUR"
-      %td{:style => th_style}= @object.price
+      %td{:style => "#{th_style} text-align: right;"}= number_to_currency @object.price
 
   %br
   %br
@@ -90,17 +89,18 @@
     %br
     = "Bank: #{our_company.bank}"
     %br
-    = our_company.country
+    = Country[(our_company.country)]
     %br
     = "Reference number: #{@object.invoice_number}"
-
+    %br
+    %br
 
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 0px;"}
     - if @object.additional_law
       = @object.additional_law.description
 
-  %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 20px;"}
+  %div{:style => "float:left; margin: 0px 0px; clear:left; margin-top: 40px;"}
     = "No signature or stamp required"
-  %div{:style => "float:right; margin: 0px 0; clear:left; margin-top: 0px;"}
+  %div{:style => "float:right; margin: 0px 0px; margin-top: 40px;"}
     = our_company.name
 
