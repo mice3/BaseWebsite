@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524121717) do
+ActiveRecord::Schema.define(version: 20150530082423) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 20150524121717) do
     t.string   "status"
     t.datetime "service_delivered_at"
     t.integer  "additional_law_id"
+    t.string   "before_table_text"
   end
 
   create_table "minimum_salaries", force: true do |t|

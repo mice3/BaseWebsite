@@ -11,6 +11,7 @@ class M3TableAdmin::InvoicesController < M3TableAdmin::ApplicationController
       @table.add_column "invoice_number", "text"
       @table.add_column "due_days", "text"
       @table.add_column "payment_difference", "text", {"form" => false}
+      @table.add_column "before_table_text"
       @table.add_date_column "sent_at"
       @table.add_date_column "service_delivered_at"
       @table.add_dropdown_column "status", Invoice::STATUSES, {"index" => false}

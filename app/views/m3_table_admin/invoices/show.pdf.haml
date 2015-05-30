@@ -20,9 +20,15 @@
     %br
     %br
   %div{:style => "float:left; margin: 0px 0; clear:left;"}
-    ="VAT number: #{our_company.vat_number}"
+    - vat_number_SI = 'SI'
+    - if @object.project.partner == 'SI'
+      vat_number_SI = ''
+    ="VAT number: #{vat_number_SI}#{our_company.vat_number}"
+    %br
+    %br
+    %br
 
-  %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 10px;"}
+  %div{:style => "float:left; margin: 0px 0; clear:left;"}
     = @object.project.partner.name
     %br
     = @object.project.partner.address
@@ -36,7 +42,7 @@
     %br
     ="VAT number: #{@object.project.partner.vat_number}"
 
-  %div{:style => "float:right; margin: 65px 120px 20px 0px; "}
+  %div{:style => "float:right; margin: 57px 120px 20px 0px; "}
     %b="Invoice number:  #{@object.invoice_number}"
     %br
     = "Invoice date:     #{l @object.created_at.to_date, format: :default}"
@@ -50,6 +56,16 @@
       = "Service delivered: #{l (@object.service_delivered_at.to_date), format: :default}"
     - else
       = "Service delivered: /"
+    %br
+    %br
+
+  - unless @object.before_table_text.blank?
+    %div{:style => "float:left; margin: 0px 0; clear:left;"}
+      %br
+      = @object.before_table_text
+      %br
+      %br
+      %br
 
   %table{:style => table_style, :cellspacing => 0}
     %tr
@@ -93,11 +109,15 @@
     %br
 
   %div{:style => "float:left; margin: 0px 0; clear:left; margin-top: 0px;"}
+    - unless @object.project.partner.footer_text.blank?
+      - @object.project.partner.footer_text
+      %br
+      %br
     - if @object.additional_law
       = @object.additional_law.description
 
   %div{:style => "float:left; margin: 0px 0px; clear:left; margin-top: 40px;"}
     = "No signature or stamp required"
-  %div{:style => "float:right; margin: 0px 0px; margin-top: 40px;"}
+  %div{:style => "float:right; margin: 0px 0px; margin-top: 90px;"}
     = our_company.name
 
