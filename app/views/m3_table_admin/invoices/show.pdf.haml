@@ -48,7 +48,7 @@
     = "Invoice date:     #{l @object.sent_at.to_date, format: :default}"
     %br
     - if @object.sent_at
-      = "Payment due:    #{l (@object.sent_at.to_date + due_days.days), format: :default}"
+      = "Payment due:    #{l (@object.sent_at.to_date + @object.due_days.days), format: :default}"
     - else
       = 'Payment due: /'
     %br
